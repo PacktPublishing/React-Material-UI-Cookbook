@@ -1,2 +1,2 @@
-# Hands-On-macOS-User-Administration
-Hands-On macOS User Administration, published by Packt
+# Hands-On-Material-Design-with-React
+Hands-On Material Design with React, published by Packt
