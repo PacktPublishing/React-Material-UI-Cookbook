@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Fade from '@material-ui/core/Fade';
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1
   },
@@ -18,8 +18,9 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20
-  }
-};
+  },
+  toolbarMargin: theme.mixins.toolbar
+});
 
 const ScrolledAppBar = withStyles(styles)(
   class extends Component {
@@ -49,7 +50,7 @@ const ScrolledAppBar = withStyles(styles)(
 
       return (
         <Fade in={!this.state.scrolling}>
-          <AppBar position="sticky">
+          <AppBar>
             <Toolbar>
               <IconButton
                 className={classes.menuButton}
@@ -75,8 +76,9 @@ const ScrolledAppBar = withStyles(styles)(
 );
 
 const AppBarWithButtons = ({ classes, title, buttonText }) => (
-  <div className={classes.root} onScroll={() => console.log('bro')}>
+  <div className={classes.root}>
     <ScrolledAppBar />
+    <div className={classes.toolbarMargin} />
     <ul>
       {new Array(500).fill(null).map((v, i) => <li key={i}>{i}</li>)}
     </ul>

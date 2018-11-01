@@ -27,27 +27,37 @@ export default withStyles(styles)(({ classes }) => (
             </Paper>
           </Grid>
           <Grid item>
-            <Paper className={classes.paper}>Two</Paper>
+            <Paper className={classes.paper}>
+              <Typography>Two</Typography>
+            </Paper>
           </Grid>
         </Grid>
       </Grid>
       <Grid item xs={3}>
         <Grid container direction="column" spacing={16}>
           <Grid item>
-            <Paper className={classes.paper}>Three</Paper>
+            <Paper className={classes.paper}>
+              <Typography>Three</Typography>
+            </Paper>
           </Grid>
           <Grid item>
-            <Paper className={classes.paper}>Four</Paper>
+            <Paper className={classes.paper}>
+              <Typography>Four</Typography>
+            </Paper>
           </Grid>
         </Grid>
       </Grid>
       <Grid item xs={3}>
         <Grid container direction="column" spacing={16}>
           <Grid item>
-            <Paper className={classes.paper}>Five</Paper>
+            <Paper className={classes.paper}>
+              <Typography>Five</Typography>
+            </Paper>
           </Grid>
           <Grid item>
-            <Paper className={classes.paper}>Six</Paper>
+            <Paper className={classes.paper}>
+              <Typography>Six</Typography>
+            </Paper>
           </Grid>
         </Grid>
       </Grid>
@@ -55,10 +65,14 @@ export default withStyles(styles)(({ classes }) => (
         <Grid item xs={3}>
           <Grid container direction="column" spacing={16}>
             <Grid item>
-              <Paper className={classes.paper}>Seven</Paper>
+              <Paper className={classes.paper}>
+                <Typography>Seven</Typography>
+              </Paper>
             </Grid>
             <Grid item>
-              <Paper className={classes.paper}>Eight</Paper>
+              <Paper className={classes.paper}>
+                <Typography>Eight</Typography>
+              </Paper>
             </Grid>
           </Grid>
         </Grid>

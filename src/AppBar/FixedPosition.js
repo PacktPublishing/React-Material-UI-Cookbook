@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1
   },
@@ -17,8 +17,9 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20
-  }
-};
+  },
+  toolbarMargin: theme.mixins.toolbar
+});
 
 export default withStyles(styles)(({ classes }) => (
   <div className={classes.root}>
@@ -41,5 +42,9 @@ export default withStyles(styles)(({ classes }) => (
         <Button color="inherit">Login</Button>
       </Toolbar>
     </AppBar>
+    <div className={classes.toolbarMargin} />
+    <ul>
+      {new Array(500).fill(null).map((v, i) => <li key={i}>{i}</li>)}
+    </ul>
   </div>
 ));

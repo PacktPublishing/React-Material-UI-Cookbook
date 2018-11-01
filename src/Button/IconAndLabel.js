@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
 import Delete from '@material-ui/icons/Delete';
-import FileUpload from '@material-ui/icons/FileUpload';
+import CloudUpload from '@material-ui/icons/CloudUpload';
 import KeyboardVoice from '@material-ui/icons/KeyboardVoice';
 import Save from '@material-ui/icons/Save';
 import Send from '@material-ui/icons/Send';
@@ -49,7 +49,7 @@ const IconLabelButtons = ({ classes }) => (
       color="default"
     >
       Upload
-      <FileUpload className={classes.rightIcon} />
+      <CloudUpload className={classes.rightIcon} />
     </Button>
     <Button
       className={classes.button}

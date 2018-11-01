@@ -9,4 +9,8 @@ import './Chip';
 import './Dialog';
 import './Divider';
 import './Drawer';
+import './ExpansionPanel';
 import './Grid';
+import './List';
+import './Table';
+import './Tabs';
