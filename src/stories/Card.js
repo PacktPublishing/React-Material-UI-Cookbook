@@ -1,21 +1,27 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
+
 import {
   withKnobs,
   text,
   boolean,
   number,
   array
-} from '@storybook/addon-knobs/react';
+} from '@storybook/addon-knobs';
 
-import { Complex, Controls, Media, Simple } from '../Card';
+import {
+  MainContent,
+  CardHeader,
+  PerformingActions,
+  PresentingMedia,
+  ExpandableCards
+} from '../Card';
 
 storiesOf('Cards', module)
   .addDecorator(withKnobs)
-  .add('Simple Card', () => <Simple />)
-  .add('Media', () => <Media />)
-  .add('UI Controls', () => <Controls />)
-  .add('Complex Interaction', () => <Complex />);
+  .add('Main Content', () => <MainContent />)
+  .add('Card Header', () => <CardHeader />)
+  .add('Performing Actions', () => <PerformingActions />)
+  .add('Presenting Media', () => <PresentingMedia />)
+  .add('Expandable Cards', () => <ExpandableCards />);
