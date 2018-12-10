@@ -1,30 +1,66 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
+import StoryRouter from 'storybook-react-router';
 import {
   withKnobs,
-  text,
   boolean,
-  number,
-  array
+  select
 } from '@storybook/addon-knobs/react';
 
 import {
-  Flat,
-  FloatingAction,
-  Icon,
-  IconAndLabel,
-  Raised,
-  Sizes
+  ButtonStates,
+  ButtonEmphasis,
+  LinkButtons,
+  FloatingActions,
+  IconButtons,
+  ButtonSizes
 } from '../Button';
 
 storiesOf('Buttons', module)
+  .addDecorator(StoryRouter())
   .addDecorator(withKnobs)
-  .add('Flat', () => <Flat />)
-  .add('Raised', () => <Raised />)
-  .add('FloatingAction', () => <FloatingAction />)
-  .add('Sizes', () => <Sizes />)
-  .add('Icon', () => <Icon />)
-  .add('Icon and Label', () => <IconAndLabel />);
+  .add('Button States', () => <ButtonStates />)
+  .add('Button Emphasis', () => (
+    <ButtonEmphasis
+      disabled={boolean('Disabled', false)}
+      appBarColor={select('AppBar Color', {
+        Default: 'default',
+        Primary: 'primary',
+        Secondary: 'secondary'
+      })}
+    />
+  ))
+  .add('Link Buttons', () => <LinkButtons />)
+  .add('Floating Actions', () => (
+    <FloatingActions
+      fabColor={select('FAB Color', {
+        Default: 'default',
+        Primary: 'primary',
+        Secondary: 'secondary'
+      })}
+    />
+  ))
+  .add('Icon Buttons', () => (
+    <IconButtons
+      iconColor={select('Icon Color', {
+        Default: 'default',
+        Primary: 'primary',
+        Secondary: 'secondary'
+      })}
+    />
+  ))
+  .add('Button Sizes', () => (
+    <ButtonSizes
+      color={select('Color', {
+        Default: 'default',
+        Primary: 'primary',
+        Secondary: 'secondary'
+      })}
+      size={select('Size', {
+        Small: 'small',
+        Medium: 'medium',
+        Large: 'large'
+      })}
+    />
+  ));

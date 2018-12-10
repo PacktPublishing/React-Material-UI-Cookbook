@@ -12,5 +12,6 @@ import './Drawer';
 import './ExpansionPanel';
 import './Grid';
 import './List';
+import './Snackbar';
 import './Table';
 import './Tabs';
