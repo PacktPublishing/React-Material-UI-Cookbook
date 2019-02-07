@@ -1,9 +1,11 @@
-import { configure } from '@storybook/react';
-import { setOptions } from '@storybook/addon-options';
+import { addDecorator, configure } from '@storybook/react';
+import { withOptions } from '@storybook/addon-options';
 
-function loadStories() {
-  require('../src/stories');
-}
+addDecorator(
+  withOptions({
+    name: 'Material UI Cookbook',
+    addonPanelInRight: true
+  })
+);
 
-setOptions({ name: 'Material UI Cookbook', addonPanelInRight: true });
-configure(loadStories, module);
+configure(() => require('../src/stories'), module);
