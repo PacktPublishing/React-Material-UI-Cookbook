@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
+import { select, withKnobs } from '@storybook/addon-knobs';
 
 import {
   IconColorAndState,
@@ -11,8 +12,64 @@ import {
 } from '../Icon';
 
 storiesOf('Icons', module)
-  .add('Icon Color and State', () => <IconColorAndState />)
-  .add('Scaling Icons', () => <ScalingIcons />)
-  .add('Dynamically Loading Icons', () => <DynamicallyLoadingIcons />)
-  .add('Themed Icons', () => <ThemedIcons />)
+  .addDecorator(withKnobs)
+  .add('Icon Color and State', () => (
+    <IconColorAndState
+      color={select(
+        'Color',
+        {
+          Action: 'action',
+          Error: 'error',
+          Inherit: 'inherit',
+          Primary: 'primary',
+          Secondary: 'secondary',
+          Disabled: 'disabled'
+        },
+        'inherit'
+      )}
+    />
+  ))
+  .add('Scaling Icons', () => (
+    <ScalingIcons
+      fontSize={select(
+        'Size',
+        {
+          Inherit: 'inherit',
+          Default: 'default',
+          Small: 'small',
+          Large: 'large'
+        },
+        'default'
+      )}
+    />
+  ))
+  .add('Dynamically Loading Icons', () => (
+    <DynamicallyLoadingIcons
+      category={select(
+        'Category',
+        {
+          Action: 'Action',
+          Alert: 'Alert',
+          Av: 'Av',
+          Communication: 'Communication'
+        },
+        'Action'
+      )}
+    />
+  ))
+  .add('Themed Icons', () => (
+    <ThemedIcons
+      theme={select(
+        'Theme',
+        {
+          Filled: 'Filled',
+          Outlined: 'Outlined',
+          Rounded: 'Rounded',
+          Sharp: 'Sharp',
+          'Two-Tone': 'TwoTone'
+        },
+        'Filled'
+      )}
+    />
+  ))
   .add('Installing More Icons', () => <InstallingMoreIcons />);
