@@ -23,7 +23,9 @@
     "react-text-mask": "^5.4.3",
     "react-virtualized": "^9.21.0",
     "text-mask-addons": "^3.8.0",
-    "typeface-roboto": "0.0.54"
+    "typeface-exo": "0.0.61",
+    "typeface-roboto": "0.0.54",
+    "typeface-ubuntu": "0.0.65"
   },
   "scripts": {
     "start": "react-scripts start",
