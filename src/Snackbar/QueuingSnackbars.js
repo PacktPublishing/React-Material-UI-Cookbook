@@ -11,7 +11,7 @@ import CloseIcon from '@material-ui/icons/Close';
 const styles = theme => ({});
 
 const withMessage = Wrapped =>
-  class extends Component {
+  class WithMessage extends Component {
     queue = [];
     state = { open: false, message: '' };
 
