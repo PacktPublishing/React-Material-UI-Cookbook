@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -10,17 +11,17 @@ const styles = theme => ({
     flexGrow: 1
   },
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary
   }
 });
 
-export default withStyles(styles)(({ classes }) => (
+const ColumnDirection = withStyles(styles)(({ classes }) => (
   <div className={classes.root}>
-    <Grid container justify="space-around" spacing={24}>
+    <Grid container justify="space-around" spacing={4}>
       <Grid item xs={3}>
-        <Grid container direction="column" spacing={16}>
+        <Grid container direction="column" spacing={2}>
           <Grid item>
             <Paper className={classes.paper}>
               <Typography>One</Typography>
@@ -34,7 +35,7 @@ export default withStyles(styles)(({ classes }) => (
         </Grid>
       </Grid>
       <Grid item xs={3}>
-        <Grid container direction="column" spacing={16}>
+        <Grid container direction="column" spacing={2}>
           <Grid item>
             <Paper className={classes.paper}>
               <Typography>Three</Typography>
@@ -48,7 +49,7 @@ export default withStyles(styles)(({ classes }) => (
         </Grid>
       </Grid>
       <Grid item xs={3}>
-        <Grid container direction="column" spacing={16}>
+        <Grid container direction="column" spacing={2}>
           <Grid item>
             <Paper className={classes.paper}>
               <Typography>Five</Typography>
@@ -63,7 +64,7 @@ export default withStyles(styles)(({ classes }) => (
       </Grid>
       <Hidden smDown>
         <Grid item xs={3}>
-          <Grid container direction="column" spacing={16}>
+          <Grid container direction="column" spacing={2}>
             <Grid item>
               <Paper className={classes.paper}>
                 <Typography>Seven</Typography>
@@ -80,3 +81,5 @@ export default withStyles(styles)(({ classes }) => (
     </Grid>
   </div>
 ));
+
+export default ColumnDirection;

@@ -1,9 +1,7 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
-import { withKnobs, select } from '@storybook/addon-knobs/react';
+import { withKnobs, select } from '@storybook/addon-knobs';
 
 import {
   UnderstandingBreakpoints,
@@ -34,11 +32,7 @@ storiesOf('Grid', module)
   ))
   .add('Fixed Column Layout', () => (
     <FixedColumnLayout
-      width={select(
-        'Width',
-        { '3': '25%', '6': '50%', '12': '100%' },
-        '6'
-      )}
+      width={select('Width', { '25%': 3, '50%': 6, '100%': 12 }, 6)}
     />
   ))
   .add('Column Direction', () => <ColumnDirection />);
