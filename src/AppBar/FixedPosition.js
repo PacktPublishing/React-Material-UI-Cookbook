@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -21,7 +22,7 @@ const styles = theme => ({
   toolbarMargin: theme.mixins.toolbar
 });
 
-export default withStyles(styles)(({ classes }) => (
+const FixedPosition = withStyles(styles)(({ classes }) => (
   <div className={classes.root}>
     <AppBar position="fixed">
       <Toolbar>
@@ -44,7 +45,11 @@ export default withStyles(styles)(({ classes }) => (
     </AppBar>
     <div className={classes.toolbarMargin} />
     <ul>
-      {new Array(500).fill(null).map((v, i) => <li key={i}>{i}</li>)}
+      {new Array(500).fill(null).map((v, i) => (
+        <li key={i}>{i}</li>
+      ))}
     </ul>
   </div>
 ));
+
+export default FixedPosition;

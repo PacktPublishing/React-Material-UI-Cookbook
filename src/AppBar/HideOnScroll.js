@@ -37,6 +37,10 @@ const ScrolledAppBar = withStyles(styles)(
       }));
     };
 
+    shouldComponentUpdate(props, state) {
+      return this.state.scrolling !== state.scrolling;
+    }
+
     componentDidMount() {
       window.addEventListener('scroll', this.onScroll);
     }
@@ -60,7 +64,7 @@ const ScrolledAppBar = withStyles(styles)(
                 <MenuIcon />
               </IconButton>
               <Typography
-                variant="title"
+                variant="h6"
                 color="inherit"
                 className={classes.flex}
               >
@@ -75,14 +79,18 @@ const ScrolledAppBar = withStyles(styles)(
   }
 );
 
-const AppBarWithButtons = ({ classes, title, buttonText }) => (
-  <div className={classes.root}>
-    <ScrolledAppBar />
-    <div className={classes.toolbarMargin} />
-    <ul>
-      {new Array(500).fill(null).map((v, i) => <li key={i}>{i}</li>)}
-    </ul>
-  </div>
+const AppBarWithButtons = withStyles(styles)(
+  ({ classes, title, buttonText }) => (
+    <div className={classes.root}>
+      <ScrolledAppBar />
+      <div className={classes.toolbarMargin} />
+      <ul>
+        {new Array(500).fill(null).map((v, i) => (
+          <li key={i}>{i}</li>
+        ))}
+      </ul>
+    </div>
+  )
 );
 
-export default withStyles(styles)(AppBarWithButtons);
+export default AppBarWithButtons;

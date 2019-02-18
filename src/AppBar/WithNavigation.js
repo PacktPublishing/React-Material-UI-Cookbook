@@ -93,7 +93,7 @@ const MyToolbar = withStyles(styles)(
   }
 );
 
-export default withStyles(styles)(({ classes }) => (
+const WithNavigation = withStyles(styles)(({ classes }) => (
   <div className={classes.root}>
     <Route
       exact
@@ -127,3 +127,5 @@ export default withStyles(styles)(({ classes }) => (
     />
   </div>
 ));
+
+export default WithNavigation;

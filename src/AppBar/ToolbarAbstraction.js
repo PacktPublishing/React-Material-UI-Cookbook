@@ -82,8 +82,12 @@ const MyToolbar = withStyles(styles)(
   }
 );
 
-export default withStyles(styles)(({ classes, ...props }) => (
-  <div className={classes.root}>
-    <MyToolbar {...props} />
-  </div>
-));
+const ToolbarAbstraction = withStyles(styles)(
+  ({ classes, ...props }) => (
+    <div className={classes.root}>
+      <MyToolbar {...props} />
+    </div>
+  )
+);
+
+export default ToolbarAbstraction;
