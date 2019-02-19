@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -50,132 +50,119 @@ const ListItems = ({ items, visible, onClick }) => (
   </Collapse>
 );
 
-export default withStyles(styles)(
-  class extends Component {
-    state = {
-      open: false,
-      content: 'Home',
-      items: {
-        cpu: [
-          { label: 'Add CPU', Icon: AddIcon },
-          { label: 'Remove CPU', Icon: RemoveIcon },
-          { label: 'Usage', Icon: ShowChartIcon }
-        ],
-        memory: [
-          { label: 'Add Memory', Icon: AddIcon },
-          { label: 'Usage', Icon: ShowChartIcon }
-        ],
-        storage: [
-          { label: 'Add Storage', Icon: AddIcon },
-          { label: 'Usage', Icon: ShowChartIcon }
-        ],
-        network: [
-          { label: 'Add Network', Icon: AddIcon, disabled: true },
-          { label: 'Usage', Icon: ShowChartIcon }
-        ]
-      },
-      sections: {
-        cpu: true,
-        memory: false,
-        storage: false,
-        network: false
-      }
-    };
+const DrawerSections = withStyles(styles)(({ classes }) => {
+  const [open, setOpen] = useState(false);
+  const [content, setContent] = useState('Home');
+  const [items] = useState({
+    cpu: [
+      { label: 'Add CPU', Icon: AddIcon },
+      { label: 'Remove CPU', Icon: RemoveIcon },
+      { label: 'Usage', Icon: ShowChartIcon }
+    ],
+    memory: [
+      { label: 'Add Memory', Icon: AddIcon },
+      { label: 'Usage', Icon: ShowChartIcon }
+    ],
+    storage: [
+      { label: 'Add Storage', Icon: AddIcon },
+      { label: 'Usage', Icon: ShowChartIcon }
+    ],
+    network: [
+      { label: 'Add Network', Icon: AddIcon, disabled: true },
+      { label: 'Usage', Icon: ShowChartIcon }
+    ]
+  });
+  const [sections, setSections] = useState({
+    cpu: true,
+    memory: false,
+    storage: false,
+    network: false
+  });
 
-    onClick = content => () =>
-      this.setState({ open: false, content });
+  const onClick = content => () => {
+    setOpen(false);
+    setContent(content);
+  };
 
-    toggleSection = name => () =>
-      this.setState(state => ({
-        sections: { ...state.sections, [name]: !state.sections[name] }
-      }));
+  const toggleSection = name => () => {
+    setSections({ ...sections, [name]: !sections[name] });
+  };
 
-    render() {
-      const { classes } = this.props;
+  return (
+    <Grid container justify="space-between">
+      <Grid item className={classes.alignContent}>
+        <Typography>{content}</Typography>
+      </Grid>
+      <Grid item>
+        <Drawer open={open} onClose={() => setOpen(false)}>
+          <List>
+            <ListSubheader>
+              <Button
+                disableRipple
+                classes={{ root: classes.listSubheader }}
+                onClick={toggleSection('cpu')}
+              >
+                CPU
+              </Button>
+            </ListSubheader>
+            <ListItems
+              visible={sections.cpu}
+              items={items.cpu}
+              onClick={onClick}
+            />
+            <ListSubheader>
+              <Button
+                disableRipple
+                classes={{ root: classes.listSubheader }}
+                onClick={toggleSection('memory')}
+              >
+                Memory
+              </Button>
+            </ListSubheader>
+            <ListItems
+              visible={sections.memory}
+              items={items.memory}
+              onClick={onClick}
+            />
+            <ListSubheader>
+              <Button
+                disableRipple
+                classes={{ root: classes.listSubheader }}
+                onClick={toggleSection('storage')}
+              >
+                Storage
+              </Button>
+            </ListSubheader>
+            <ListItems
+              visible={sections.storage}
+              items={items.storage}
+              onClick={onClick}
+            />
+            <ListSubheader>
+              <Button
+                disableRipple
+                classes={{ root: classes.listSubheader }}
+                onClick={toggleSection('network')}
+              >
+                Network
+              </Button>
+            </ListSubheader>
+            <ListItems
+              visible={sections.network}
+              items={items.network}
+              onClick={onClick}
+            />
+          </List>
+        </Drawer>
+      </Grid>
 
-      return (
-        <Grid container justify="space-between">
-          <Grid item className={classes.alignContent}>
-            <Typography>{this.state.content}</Typography>
-          </Grid>
-          <Grid item>
-            <Drawer
-              className={classes.drawerWidth}
-              open={this.state.open}
-              onClose={() => this.setState({ open: false })}
-            >
-              <List>
-                <ListSubheader>
-                  <Button
-                    disableRipple
-                    classes={{ root: classes.listSubheader }}
-                    onClick={this.toggleSection('cpu')}
-                  >
-                    CPU
-                  </Button>
-                </ListSubheader>
-                <ListItems
-                  visible={this.state.sections.cpu}
-                  items={this.state.items.cpu}
-                  onClick={this.onClick}
-                />
-                <ListSubheader>
-                  <Button
-                    disableRipple
-                    classes={{ root: classes.listSubheader }}
-                    onClick={this.toggleSection('memory')}
-                  >
-                    Memory
-                  </Button>
-                </ListSubheader>
-                <ListItems
-                  visible={this.state.sections.memory}
-                  items={this.state.items.memory}
-                  onClick={this.onClick}
-                />
-                <ListSubheader>
-                  <Button
-                    disableRipple
-                    classes={{ root: classes.listSubheader }}
-                    onClick={this.toggleSection('storage')}
-                  >
-                    Storage
-                  </Button>
-                </ListSubheader>
-                <ListItems
-                  visible={this.state.sections.storage}
-                  items={this.state.items.storage}
-                  onClick={this.onClick}
-                />
-                <ListSubheader>
-                  <Button
-                    disableRipple
-                    classes={{ root: classes.listSubheader }}
-                    onClick={this.toggleSection('network')}
-                  >
-                    Network
-                  </Button>
-                </ListSubheader>
-                <ListItems
-                  visible={this.state.sections.network}
-                  items={this.state.items.network}
-                  onClick={this.onClick}
-                />
-              </List>
-            </Drawer>
-          </Grid>
+      <Grid item>
+        <Button onClick={() => setOpen(!open)}>
+          {open ? 'Hide' : 'Show'} Drawer
+        </Button>
+      </Grid>
+    </Grid>
+  );
+});
 
-          <Grid item>
-            <Button
-              onClick={() =>
-                this.setState(state => ({ open: !state.open }))
-              }
-            >
-              {this.state.open ? 'Hide' : 'Show'} Drawer
-            </Button>
-          </Grid>
-        </Grid>
-      );
-    }
-  }
-);
+export default DrawerSections;

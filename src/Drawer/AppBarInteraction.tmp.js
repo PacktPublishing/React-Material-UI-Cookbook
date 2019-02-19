@@ -1,5 +1,4 @@
 import React, { useState, Fragment } from 'react';
-import clsx from 'clsx';
 
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -25,16 +24,13 @@ const styles = theme => ({
     marginLeft: -12,
     marginRight: 20
   },
-  toolbarMargin: theme.mixins.toolbar,
-  aboveDrawer: {
-    zIndex: theme.zIndex.drawer + 1
-  }
+  toolbarMargin: theme.mixins.toolbar
 });
 
 const MyToolbar = withStyles(styles)(
   ({ classes, title, onMenuClick }) => (
     <Fragment>
-      <AppBar className={classes.aboveDrawer}>
+      <AppBar>
         <Toolbar>
           <IconButton
             className={classes.menuButton}
@@ -59,21 +55,34 @@ const MyToolbar = withStyles(styles)(
 );
 
 const MyDrawer = withStyles(styles)(
-  ({ classes, variant, open, onClose, onItemClick }) => (
+  ({ classes, variant, open, onClose, setTitle }) => (
     <Drawer variant={variant} open={open} onClose={onClose}>
-      <div
-        className={clsx({
-          [classes.toolbarMargin]: variant === 'persistent'
-        })}
-      />
       <List>
-        <ListItem button onClick={onItemClick('Home')}>
+        <ListItem
+          button
+          onClick={() => {
+            setTitle('Home');
+            onClose();
+          }}
+        >
           <ListItemText>Home</ListItemText>
         </ListItem>
-        <ListItem button onClick={onItemClick('Page 2')}>
+        <ListItem
+          button
+          onClick={() => {
+            setTitle('Page 2');
+            onClose();
+          }}
+        >
           <ListItemText>Page 2</ListItemText>
         </ListItem>
-        <ListItem button onClick={onItemClick('Page 3')}>
+        <ListItem
+          button
+          onClick={() => {
+            setTitle('Page 3');
+            onClose();
+          }}
+        >
           <ListItemText>Page 3</ListItemText>
         </ListItem>
       </List>
@@ -81,17 +90,13 @@ const MyDrawer = withStyles(styles)(
   )
 );
 
-function AppBarInteraction({ classes, variant }) {
+function AppBarInteraction({ classes }) {
   const [drawer, setDrawer] = useState(false);
   const [title, setTitle] = useState('Home');
+  const [variant] = useState('temporary');
 
   const toggleDrawer = () => {
     setDrawer(!drawer);
-  };
-
-  const onItemClick = title => () => {
-    setTitle(title);
-    setDrawer(variant === 'temporary' ? false : drawer);
   };
 
   return (
@@ -100,8 +105,7 @@ function AppBarInteraction({ classes, variant }) {
       <MyDrawer
         open={drawer}
         onClose={toggleDrawer}
-        onItemClick={onItemClick}
-        variant={variant}
+        setTitle={setTitle}
       />
     </div>
   );

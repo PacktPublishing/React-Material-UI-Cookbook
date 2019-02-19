@@ -5,14 +5,7 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 import StoryRouter from 'storybook-react-router';
 
-import {
-  withKnobs,
-  text,
-  boolean,
-  number,
-  array,
-  select
-} from '@storybook/addon-knobs/react';
+import { withKnobs, select } from '@storybook/addon-knobs';
 
 import {
   DrawerTypes,
@@ -30,9 +23,9 @@ storiesOf('Drawers', module)
       variant={select(
         'Variant',
         {
-          temporary: 'Temporary',
-          persistent: 'Persistent',
-          permanent: 'Permanent'
+          Temporary: 'temporary',
+          Persistent: 'persistent',
+          Permanent: 'permanent'
         },
         'temporary'
       )}
@@ -46,8 +39,8 @@ storiesOf('Drawers', module)
       variant={select(
         'Variant',
         {
-          temporary: 'Temporary',
-          persistent: 'Persistent'
+          Temporary: 'temporary',
+          Persistent: 'persistent'
         },
         'temporary'
       )}

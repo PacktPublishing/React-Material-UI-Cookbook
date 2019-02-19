@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
+import React, { useState } from 'react';
+import clsx from 'clsx';
 import { Switch, Route, Link, NavLink } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -29,14 +29,14 @@ const NavListItem = withStyles(styles)(
     <ListItem component={NavLink} {...other}>
       <ListItemIcon
         classes={{
-          root: classNames({ [classes.activeListItem]: active })
+          root: clsx({ [classes.activeListItem]: active })
         }}
       >
         <Icon />
       </ListItemIcon>
       <ListItemText
         classes={{
-          primary: classNames({
+          primary: clsx({
             [classes.activeListItem]: active
           })
         }}
@@ -58,71 +58,63 @@ const NavItem = props => (
   </Switch>
 );
 
-export default withStyles(styles)(
-  class extends Component {
-    state = { open: false };
+function DrawerItemNavigation({ classes }) {
+  const [open, setOpen] = useState(false);
 
-    render() {
-      const { classes } = this.props;
+  return (
+    <Grid container justify="space-between">
+      <Grid item className={classes.alignContent}>
+        <Route
+          exact
+          path="/"
+          render={() => <Typography>Home</Typography>}
+        />
+        <Route
+          exact
+          path="/page2"
+          render={() => <Typography>Page 2</Typography>}
+        />
+        <Route
+          exact
+          path="/page3"
+          render={() => <Typography>Page 3</Typography>}
+        />
+      </Grid>
+      <Grid item>
+        <Drawer
+          className={classes.drawerWidth}
+          open={open}
+          onClose={() => setOpen(false)}
+        >
+          <List>
+            <NavItem
+              to="/"
+              text="Home"
+              Icon={HomeIcon}
+              onClick={() => setOpen(false)}
+            />
+            <NavItem
+              to="/page2"
+              text="Page 2"
+              Icon={WebIcon}
+              onClick={() => setOpen(false)}
+            />
+            <NavItem
+              to="/page3"
+              text="Page 3"
+              Icon={WebIcon}
+              onClick={() => setOpen(false)}
+            />
+          </List>
+        </Drawer>
+      </Grid>
+      <Grid item>
+        <Button onClick={() => setOpen(!open)}>
+          {open ? 'Hide' : 'Show'} Drawer
+        </Button>
+      </Grid>
+    </Grid>
+  );
+}
 
-      return (
-        <Grid container justify="space-between">
-          <Grid item className={classes.alignContent}>
-            <Route
-              exact
-              path="/"
-              render={() => <Typography>Home</Typography>}
-            />
-            <Route
-              exact
-              path="/page2"
-              render={() => <Typography>Page 2</Typography>}
-            />
-            <Route
-              exact
-              path="/page3"
-              render={() => <Typography>Page 3</Typography>}
-            />
-          </Grid>
-          <Grid item>
-            <Drawer
-              className={classes.drawerWidth}
-              open={this.state.open}
-              onClose={() => this.setState({ open: false })}
-            >
-              <List>
-                <NavItem
-                  to="/"
-                  text="Home"
-                  Icon={HomeIcon}
-                  onClick={() => this.setState({ open: false })}
-                />
-                <NavItem
-                  to="/page2"
-                  text="Page 2"
-                  Icon={WebIcon}
-                  onClick={() => this.setState({ open: false })}
-                />
-                <NavItem
-                  to="/page3"
-                  text="Page 3"
-                  Icon={WebIcon}
-                  onClick={() => this.setState({ open: false })}
-                />
-              </List>
-            </Drawer>
-          </Grid>
-          <Grid item>
-            <Button
-              onClick={() =>
-                this.setState(state => ({ open: !state.open }))
-              }
-            >
-              {this.state.open ? 'Hide' : 'Show'} Drawer
-            </Button>
-          </Grid>
-        </Grid>
-      );
-    }
-  }
-);
+export default withStyles(styles)(DrawerItemNavigation);

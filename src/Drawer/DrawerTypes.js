@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -9,71 +8,44 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-const styles = theme => ({
-  drawerWidth: 240
-});
+export default function DrawerTypes({ classes, variant }) {
+  const [open, setOpen] = useState(false);
 
-export default withStyles(styles)(
-  class extends Component {
-    state = { open: false };
-
-    render() {
-      const { classes, variant } = this.props;
-
-      return (
-        <Grid container justify="space-between">
-          <Grid item>
-            <Drawer
-              variant={variant}
-              className={classes.drawerWidth}
-              open={this.state.open}
-              onClose={() => this.setState({ open: false })}
+  return (
+    <Grid container justify="space-between">
+      <Grid item>
+        <Drawer
+          variant={variant}
+          open={open}
+          onClose={() => setOpen(false)}
+        >
+          <List>
+            <ListItem
+              button
+              onClick={() => setOpen(variant !== 'temporary')}
             >
-              <List>
-                <ListItem
-                  button
-                  onClick={() =>
-                    this.setState({
-                      open: this.props.variant !== 'temporary'
-                    })
-                  }
-                >
-                  <ListItemText>Home</ListItemText>
-                </ListItem>
-                <ListItem
-                  button
-                  onClick={() =>
-                    this.setState({
-                      open: this.props.variant !== 'temporary'
-                    })
-                  }
-                >
-                  <ListItemText>Page 2</ListItemText>
-                </ListItem>
-                <ListItem
-                  button
-                  onClick={() =>
-                    this.setState({
-                      open: this.props.variant !== 'temporary'
-                    })
-                  }
-                >
-                  <ListItemText>Page 3</ListItemText>
-                </ListItem>
-              </List>
-            </Drawer>
-          </Grid>
-          <Grid item>
-            <Button
-              onClick={() =>
-                this.setState(state => ({ open: !state.open }))
-              }
+              <ListItemText>Home</ListItemText>
+            </ListItem>
+            <ListItem
+              button
+              onClick={() => setOpen(variant !== 'temporary')}
             >
-              {this.state.open ? 'Hide' : 'Show'} Drawer
-            </Button>
-          </Grid>
-        </Grid>
-      );
-    }
-  }
-);
+              <ListItemText>Page 2</ListItemText>
+            </ListItem>
+            <ListItem
+              button
+              onClick={() => setOpen(variant !== 'temporary')}
+            >
+              <ListItemText>Page 3</ListItemText>
+            </ListItem>
+          </List>
+        </Drawer>
+      </Grid>
+      <Grid item>
+        <Button onClick={() => setOpen(!open)}>
+          {open ? 'Hide' : 'Show'} Drawer
+        </Button>
+      </Grid>
+    </Grid>
+  );
+}
