@@ -3,16 +3,10 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
 import StoryRouter from 'storybook-react-router';
 
-import {
-  withKnobs,
-  text,
-  boolean,
-  number,
-  array,
-  select
-} from '@storybook/addon-knobs/react';
+import withThemeProvider from './withThemeProvider';
 
 import {
   AppBarIntegration,
@@ -24,6 +18,7 @@ import {
 
 storiesOf('Tabs', module)
   .addDecorator(withKnobs)
+  .addDecorator(withThemeProvider)
   .addDecorator(StoryRouter())
   .add('AppBar Integration', () => <AppBarIntegration />)
   .add('Tab Alignment', () => (

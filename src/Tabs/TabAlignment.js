@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import compose from 'recompose/compose';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -13,41 +13,30 @@ const styles = theme => ({
   }
 });
 
+function TabAlignment({ classes, width }) {
+  const [value, setValue] = useState(0);
+
+  const onChange = (e, value) => {
+    setValue(value);
+  };
+
+  return (
+    <div className={classes.root}>
+      <Tabs
+        value={value}
+        onChange={onChange}
+        variant={['xs', 'sm'].includes(width) ? null : 'fullWidth'}
+        centered
+      >
+        <Tab label="Item One" />
+        <Tab label="Item Two" />
+        <Tab label="Item Three" />
+      </Tabs>
+    </div>
+  );
+}
+
 export default compose(
   withWidth(),
   withStyles(styles)
-)(
-  class extends Component {
-    state = {
-      value: 0
-    };
-
-    onChange = (e, value) => {
-      this.setState({ value });
-    };
-
-    get fullWidth() {
-      return !['xs', 'sm'].includes(this.props.width);
-    }
-
-    render() {
-      const { classes } = this.props;
-      const { value } = this.state;
-
-      return (
-        <div className={classes.root}>
-          <Tabs
-            value={value}
-            onChange={this.onChange}
-            fullWidth={this.fullWidth}
-            centered
-          >
-            <Tab label="Item One" />
-            <Tab label="Item Two" />
-            <Tab label="Item Three" />
-          </Tabs>
-        </div>
-      );
-    }
-  }
-);
+)(TabAlignment);

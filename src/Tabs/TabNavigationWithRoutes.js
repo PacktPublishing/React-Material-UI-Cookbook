@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { Route, Link } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -13,7 +13,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper
   },
   tabContent: {
-    padding: theme.spacing.unit * 2
+    padding: theme.spacing(2)
   }
 });
 
@@ -27,7 +27,7 @@ const TabContainer = ({ value }) => (
   </AppBar>
 );
 
-export default withStyles(styles)(({ classes }) => (
+const TabNavigationWithRoutes = withStyles(styles)(({ classes }) => (
   <div className={classes.root}>
     <Route
       exact
@@ -67,3 +67,5 @@ export default withStyles(styles)(({ classes }) => (
     />
   </div>
 ));
+
+export default TabNavigationWithRoutes;

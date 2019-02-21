@@ -8,4 +8,4 @@ export {
 } from './AbstractingTabContent';
 export {
   default as TabNavigationWithRoutes
-} from './TabNavigationWithRoutes';
+} from './TabNavigationWithRoutes.tmp';

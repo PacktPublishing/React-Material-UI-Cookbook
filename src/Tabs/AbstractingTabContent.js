@@ -1,4 +1,4 @@
-import React, { Fragment, Component, Children } from 'react';
+import React, { Fragment, Children, useState } from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -11,47 +11,38 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper
   },
   tabContent: {
-    padding: theme.spacing.unit * 2
+    padding: theme.spacing(2)
   }
 });
 
-class TabContainer extends Component {
-  static defaultProps = {
-    value: 0
+function TabContainer({ children, value: valueProp }) {
+  const [value, setValue] = useState();
+
+  const onChange = (e, value) => {
+    setValue(value);
   };
 
-  static getDerivedStateFromProps(props, state) {
-    return {
-      ...state,
-      value: state.value === undefined ? props.value : state.value
-    };
+  if (value === undefined) {
+    setValue(valueProp);
   }
 
-  state = {};
-
-  onChange = (e, value) => {
-    this.setState({ value });
-  };
-
-  render() {
-    const { children } = this.props;
-
-    return (
-      <Fragment>
-        <Tabs value={this.state.value} onChange={this.onChange}>
-          {Children.map(children, child => (
-            <Tab label={child.props.label} />
-          ))}
-        </Tabs>
-        {Children.map(
-          children,
-          (child, index) =>
-            index === this.state.value ? child : null
-        )}
-      </Fragment>
-    );
-  }
+  return (
+    <Fragment>
+      <Tabs value={value} onChange={onChange}>
+        {Children.map(children, child => (
+          <Tab label={child.props.label} />
+        ))}
+      </Tabs>
+      {Children.map(children, (child, index) =>
+        index === value ? child : null
+      )}
+    </Fragment>
+  );
 }
+
+TabContainer.defaultProps = {
+  value: 0
+};
 
 const TabContent = withStyles(styles)(({ classes, children }) => (
   <Typography component="div" className={classes.tabContent}>
@@ -59,7 +50,7 @@ const TabContent = withStyles(styles)(({ classes, children }) => (
   </Typography>
 ));
 
-export default withStyles(styles)(({ classes }) => (
+const AbstractingTabContent = withStyles(styles)(({ classes }) => (
   <div className={classes.root}>
     <TabContainer value={1}>
       <TabContent label="Item One">Item One Content</TabContent>
@@ -68,3 +59,5 @@ export default withStyles(styles)(({ classes }) => (
     </TabContainer>
   </div>
 ));
+
+export default AbstractingTabContent;
