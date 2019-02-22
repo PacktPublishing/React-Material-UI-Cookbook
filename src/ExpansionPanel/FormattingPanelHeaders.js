@@ -13,16 +13,16 @@ import StorageIcon from '@material-ui/icons/Storage';
 
 const styles = theme => ({
   icon: {
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing(1)
   }
 });
 
-export default withStyles(styles)(({ classes }) => (
+const FormattingPanelHeaders = withStyles(styles)(({ classes }) => (
   <Fragment>
     <ExpansionPanel>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <DevicesIcon className={classes.icon} />
-        <Typography variant="subheading">Devices</Typography>
+        <Typography variant="subtitle1">Devices</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <Typography>Devices content...</Typography>
@@ -31,7 +31,7 @@ export default withStyles(styles)(({ classes }) => (
     <ExpansionPanel>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <NetworkWifiIcon className={classes.icon} />
-        <Typography variant="subheading">Networks</Typography>
+        <Typography variant="subtitle1">Networks</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <Typography>Networks content...</Typography>
@@ -40,7 +40,7 @@ export default withStyles(styles)(({ classes }) => (
     <ExpansionPanel>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <StorageIcon className={classes.icon} />
-        <Typography variant="subheading">Storage</Typography>
+        <Typography variant="subtitle1">Storage</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <Typography>Storage content...</Typography>
@@ -48,3 +48,5 @@ export default withStyles(styles)(({ classes }) => (
     </ExpansionPanel>
   </Fragment>
 ));
+
+export default FormattingPanelHeaders;

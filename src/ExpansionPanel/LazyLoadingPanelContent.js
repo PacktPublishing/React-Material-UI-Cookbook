@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -11,9 +11,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const MaybeProgress = ({ loading }) =>
   loading ? <LinearProgress /> : null;
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   panelDetails: { flexDirection: 'column' }
-});
+}));
 
 const fetchPanelContent = index =>
   new Promise(resolve =>
@@ -31,50 +31,38 @@ const fetchPanelContent = index =>
     )
   );
 
-export default withStyles(styles)(
-  class extends Component {
-    state = {
-      panels: [
-        { title: 'First Panel Title' },
-        { title: 'Second Panel Title' },
-        { title: 'Third Panel Title' },
-        { title: 'Fourth Panel Title' }
-      ]
-    };
+export default function LazyLoadingPanelContent() {
+  const classes = useStyles();
+  const [panels, setPanels] = useState([
+    { title: 'First Panel Title' },
+    { title: 'Second Panel Title' },
+    { title: 'Third Panel Title' },
+    { title: 'Fourth Panel Title' }
+  ]);
 
-    onChange = index => (e, expanded) => {
-      if (!this.state.panels[index].content && expanded) {
-        fetchPanelContent(index).then(content =>
-          this.setState(state => {
-            const panels = [...state.panels];
-            panels[index] = { ...panels[index], content };
-            return { panels };
-          })
-        );
-      }
-    };
-
-    render() {
-      const { classes } = this.props;
-
-      return (
-        <Fragment>
-          {this.state.panels.map((panel, index) => (
-            <ExpansionPanel
-              key={index}
-              onChange={this.onChange(index)}
-            >
-              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography>{panel.title}</Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails className={classes.panelDetails}>
-                <MaybeProgress loading={!panel.content} />
-                <Typography>{panel.content}</Typography>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-          ))}
-        </Fragment>
-      );
+  const onChange = index => (e, expanded) => {
+    if (!panels[index].content && expanded) {
+      fetchPanelContent(index).then(content => {
+        const newPanels = [...panels];
+        newPanels[index] = { ...newPanels[index], content };
+        setPanels(newPanels);
+      });
     }
-  }
-);
+  };
+
+  return (
+    <Fragment>
+      {panels.map((panel, index) => (
+        <ExpansionPanel key={index} onChange={onChange(index)}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography>{panel.title}</Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails className={classes.panelDetails}>
+            <MaybeProgress loading={!panel.content} />
+            <Typography>{panel.content}</Typography>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      ))}
+    </Fragment>
+  );
+}

@@ -58,7 +58,7 @@ const IpsumContent = () => (
   </Fragment>
 );
 
-export default withStyles(styles)(({ classes }) => (
+const ScrollablePanelContent = withStyles(styles)(({ classes }) => (
   <Fragment>
     <ExpansionPanel>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -86,3 +86,5 @@ export default withStyles(styles)(({ classes }) => (
     </ExpansionPanel>
   </Fragment>
 ));
+
+export default ScrollablePanelContent;
