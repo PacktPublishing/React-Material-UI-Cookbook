@@ -1,16 +1,13 @@
 import React, { Fragment } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 
-const styles = theme => ({});
-
-export default withStyles(styles)(() => (
+const ListSections = () => (
   <Fragment>
-    <Typography variant="title">First Section</Typography>
+    <Typography variant="h6">First Section</Typography>
     <List>
       <ListItem>
         <ListItemText primary="First" />
@@ -19,7 +16,7 @@ export default withStyles(styles)(() => (
         <ListItemText primary="Second" />
       </ListItem>
     </List>
-    <Typography variant="title">Second Section</Typography>
+    <Typography variant="h6">Second Section</Typography>
     <List>
       <ListItem>
         <ListItemText primary="Third" />
@@ -28,7 +25,7 @@ export default withStyles(styles)(() => (
         <ListItemText primary="Fourth" />
       </ListItem>
     </List>
-    <Typography variant="title">Third Section</Typography>
+    <Typography variant="h6">Third Section</Typography>
     <List>
       <ListItem>
         <ListItemText primary="Fifth" />
@@ -38,4 +35,6 @@ export default withStyles(styles)(() => (
       </ListItem>
     </List>
   </Fragment>
-));
+);
+
+export default ListSections;

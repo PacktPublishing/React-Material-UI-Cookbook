@@ -1,52 +1,43 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-const styles = theme => ({});
+export default function UsingStatetoRenderListItems() {
+  const [items, setItems] = useState([
+    { name: 'First Item', timestamp: new Date() },
+    { name: 'Second Item', timestamp: new Date() },
+    { name: 'Third Item', timestamp: new Date() }
+  ]);
 
-export default withStyles(styles)(
-  class extends Component {
-    state = {
-      items: [
-        { name: 'First Item', timestamp: new Date() },
-        { name: 'Second Item', timestamp: new Date() },
-        { name: 'Third Item', timestamp: new Date() }
-      ]
-    };
+  const onClick = index => () => {
+    const item = items[index];
+    const newItems = [...items];
 
-    onClick = index => () =>
-      this.setState(state => {
-        const items = [...state.items];
-        const item = items[index];
+    newItems[index] = { ...item, selected: !item.selected };
+    setItems(newItems);
+  };
 
-        items[index] = { ...item, selected: !item.selected };
-        return { ...state, items };
-      });
-
-    render() {
-      return (
-        <List>
-          {this.state.items.map((item, index) => (
-            <ListItem
-              button
-              dense
-              selected={item.selected}
-              onClick={this.onClick(index)}
-            >
-              <ListItemText
-                primary={item.name}
-                secondary={item.timestamp.toLocaleString()}
-                primaryTypographyProps={{
-                  color: item.selected ? 'primary' : undefined
-                }}
-              />
-            </ListItem>
-          ))}
-        </List>
-      );
-    }
-  }
-);
+  return (
+    <List>
+      {items.map((item, index) => (
+        <ListItem
+          key={index}
+          button
+          dense
+          selected={item.selected}
+          onClick={onClick(index)}
+        >
+          <ListItemText
+            primary={item.name}
+            secondary={item.timestamp.toLocaleString()}
+            primaryTypographyProps={{
+              color: item.selected ? 'primary' : undefined
+            }}
+          />
+        </ListItem>
+      ))}
+    </List>
+  );
+}

@@ -1,16 +1,8 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 
-import {
-  withKnobs,
-  text,
-  boolean,
-  number,
-  array,
-  select
-} from '@storybook/addon-knobs/react';
+import withThemeProvider from './withThemeProvider';
 
 import {
   UsingStateToRenderListItems,
@@ -23,7 +15,7 @@ import {
 } from '../List';
 
 storiesOf('Lists', module)
-  .addDecorator(withKnobs)
+  .addDecorator(withThemeProvider)
   .add('Using State to Render List Items', () => (
     <UsingStateToRenderListItems />
   ))
