@@ -1,5 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 
+import { makeStyles } from '@material-ui/styles';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -65,85 +66,83 @@ const fetchData = () =>
   });
 
 const styles = theme => ({
-  root: { margin: theme.spacing.unit * 2, textAlign: 'center' },
-  progress: { margin: theme.spacing.unit * 2 },
-  search: { marginLeft: theme.spacing.unit * 2 }
+  root: { margin: theme.spacing(2), textAlign: 'center' },
+  progress: { margin: theme.spacing(2) },
+  search: { marginLeft: theme.spacing(2) }
 });
+const useStyles = makeStyles(styles);
 
-const MaybeLoading = withStyles(styles)(
-  ({ classes, loading }) =>
-    loading ? <CircularProgress className={classes.progress} /> : null
+const MaybeLoading = withStyles(styles)(({ classes, loading }) =>
+  loading ? <CircularProgress className={classes.progress} /> : null
 );
 
-export default withStyles(styles)(
-  class extends Component {
-    state = { search: '', items: [], loading: true };
+export default function FilteringRows() {
+  const classes = useStyles();
+  const [search, setSearch] = useState('');
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    componentDidMount() {
-      fetchData().then(items =>
-        this.setState({ items, loading: false })
-      );
-    }
+  useEffect(() => {
+    fetchData().then(items => {
+      setItems(items);
+      setLoading(false);
+    });
+  }, []);
 
-    onSearchChange = e => this.setState({ search: e.target.value });
+  const onSearchChange = e => {
+    setSearch(e.target.value);
+  };
 
-    render() {
-      const { classes } = this.props;
-
-      return (
-        <Fragment>
-          <TextField
-            value={this.state.search}
-            onChange={this.onSearchChange}
-            className={classes.search}
-            id="input-search"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              )
-            }}
-          />
-          <Paper className={classes.root}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Created</TableCell>
-                  <TableCell numeric>High</TableCell>
-                  <TableCell numeric>Low</TableCell>
-                  <TableCell numeric>Average</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {this.state.items
-                  .filter(
-                    item =>
-                      !this.state.search ||
-                      item.name.includes(this.state.search)
-                  )
-                  .map(item => {
-                    return (
-                      <TableRow key={item.id}>
-                        <TableCell component="th" scope="row">
-                          {item.name}
-                        </TableCell>
-                        <TableCell>
-                          {item.created.toLocaleString()}
-                        </TableCell>
-                        <TableCell numeric>{item.high}</TableCell>
-                        <TableCell numeric>{item.low}</TableCell>
-                        <TableCell numeric>{item.average}</TableCell>
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-            <MaybeLoading loading={this.state.loading} />
-          </Paper>
-        </Fragment>
-      );
-    }
-  }
-);
+  return (
+    <Fragment>
+      <TextField
+        value={search}
+        onChange={onSearchChange}
+        className={classes.search}
+        id="input-search"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          )
+        }}
+      />
+      <Paper className={classes.root}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Created</TableCell>
+              <TableCell align="right">High</TableCell>
+              <TableCell align="right">Low</TableCell>
+              <TableCell align="right">Average</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {items
+              .filter(item => !search || item.name.includes(search))
+              .map(item => {
+                return (
+                  <TableRow key={item.id}>
+                    <TableCell component="th" scope="row">
+                      {item.name}
+                    </TableCell>
+                    <TableCell>
+                      {item.created.toLocaleString()}
+                    </TableCell>
+                    <TableCell align="right">{item.high}</TableCell>
+                    <TableCell align="right">{item.low}</TableCell>
+                    <TableCell align="right">
+                      {item.average}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </Table>
+        <MaybeLoading loading={loading} />
+      </Paper>
+    </Fragment>
+  );
+}

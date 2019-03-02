@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
+import { withKnobs } from '@storybook/addon-knobs';
 
-import { withKnobs } from '@storybook/addon-knobs/react';
+import withThemeProvider from './withThemeProvider';
 
 import {
   StatefulTables,
@@ -15,6 +16,7 @@ import {
 
 storiesOf('Tables', module)
   .addDecorator(withKnobs)
+  .addDecorator(withThemeProvider)
   .add('Stateful Tables', () => <StatefulTables />)
   .add('Sortable Columns', () => <SortableColumns />)
   .add('Filtering Rows', () => <FilteringRows />)

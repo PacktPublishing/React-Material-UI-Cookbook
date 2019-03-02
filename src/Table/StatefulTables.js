@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -57,62 +57,63 @@ const fetchData = () =>
     setTimeout(() => resolve(items), 1000);
   });
 
-const styles = theme => ({
-  root: { margin: theme.spacing.unit * 2, textAlign: 'center' },
-  progress: { margin: theme.spacing.unit * 2 }
-});
+const usePaperStyles = makeStyles(theme => ({
+  root: { margin: theme.spacing(2), textAlign: 'center' }
+}));
 
-const MaybeLoading = withStyles(styles)(
-  ({ classes, loading }) =>
-    loading ? <CircularProgress className={classes.progress} /> : null
-);
+const useProgressStyles = makeStyles(theme => ({
+  progress: { margin: theme.spacing(2) }
+}));
 
-export default withStyles(styles)(
-  class extends Component {
-    state = { items: [], loading: true };
+function MaybeLoading({ loading }) {
+  const classes = useProgressStyles();
+  return loading ? (
+    <CircularProgress className={classes.progress} />
+  ) : null;
+}
 
-    componentDidMount() {
-      fetchData().then(items =>
-        this.setState({ items, loading: false })
-      );
-    }
+export default function StatefulTables() {
+  const classes = usePaperStyles();
 
-    render() {
-      const { classes } = this.props;
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-      return (
-        <Paper className={classes.root}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Created</TableCell>
-                <TableCell numeric>High</TableCell>
-                <TableCell numeric>Low</TableCell>
-                <TableCell numeric>Average</TableCell>
+  useEffect(() => {
+    fetchData().then(items => {
+      setItems(items);
+      setLoading(false);
+    });
+  }, []);
+
+  return (
+    <Paper className={classes.root}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Name</TableCell>
+            <TableCell>Created</TableCell>
+            <TableCell align="right">High</TableCell>
+            <TableCell align="right">Low</TableCell>
+            <TableCell align="right">Average</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {items.map(item => {
+            return (
+              <TableRow key={item.id}>
+                <TableCell component="th" scope="row">
+                  {item.name}
+                </TableCell>
+                <TableCell>{item.created.toLocaleString()}</TableCell>
+                <TableCell align="right">{item.high}</TableCell>
+                <TableCell align="right">{item.low}</TableCell>
+                <TableCell align="right">{item.average}</TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {this.state.items.map(item => {
-                return (
-                  <TableRow key={item.id}>
-                    <TableCell component="th" scope="row">
-                      {item.name}
-                    </TableCell>
-                    <TableCell>
-                      {item.created.toLocaleString()}
-                    </TableCell>
-                    <TableCell numeric>{item.high}</TableCell>
-                    <TableCell numeric>{item.low}</TableCell>
-                    <TableCell numeric>{item.average}</TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-          <MaybeLoading loading={this.state.loading} />
-        </Paper>
-      );
-    }
-  }
-);
+            );
+          })}
+        </TableBody>
+      </Table>
+      <MaybeLoading loading={loading} />
+    </Paper>
+  );
+}
