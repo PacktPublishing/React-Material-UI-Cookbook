@@ -15,7 +15,7 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(({ classes }) => (
+const MyCardHeader = withStyles(styles)(({ classes }) => (
   <Card className={classes.card}>
     <CardHeader
       title="Ron Swanson"
@@ -35,3 +35,5 @@ export default withStyles(styles)(({ classes }) => (
     </CardContent>
   </Card>
 ));
+
+export default MyCardHeader;

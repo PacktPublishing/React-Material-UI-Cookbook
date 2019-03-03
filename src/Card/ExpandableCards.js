@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -16,73 +16,67 @@ import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   card: {
     maxWidth: 400
   },
   expand: {
     marginLeft: 'auto'
   }
-});
+}));
 
 const ExpandIcon = ({ expanded }) =>
   expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />;
 
-export default withStyles(styles)(
-  class extends Component {
-    state = { expanded: false };
+export default function ExpandableCards() {
+  const classes = useStyles();
+  const [expanded, setExpanded] = useState(false);
 
-    toggleExpanded = () => {
-      this.setState(state => ({ expanded: !state.expanded }));
-    };
+  const toggleExpanded = () => {
+    setExpanded(!expanded);
+  };
 
-    render() {
-      const { classes } = this.props;
-
-      return (
-        <Card className={classes.card}>
-          <CardHeader
-            title="Ron Swanson"
-            subheader="Legend"
-            avatar={
-              <Avatar>
-                <PersonIcon />
-              </Avatar>
-            }
-          />
-          <CardContent>
-            <Typography variant="caption">Joined 2009</Typography>
-            <Typography>
-              Some filler text about the user. There doesn't have to
-              be a lot - just enough so that the text spans at least
-              two lines.
-            </Typography>
-          </CardContent>
-          <CardActions disableActionSpacing>
-            <IconButton>
-              <ContactMailIcon />
-            </IconButton>
-            <IconButton>
-              <ContactPhoneIcon />
-            </IconButton>
-            <IconButton
-              className={classes.expand}
-              onClick={this.toggleExpanded}
-            >
-              <ExpandIcon expanded={this.state.expanded} />
-            </IconButton>
-          </CardActions>
-          <Collapse in={this.state.expanded}>
-            <CardContent>
-              <Typography>
-                Even more filler text about the user. It doesn't fit
-                in the main content area of the card, so this is what
-                the user will see when they click the expand button.
-              </Typography>
-            </CardContent>
-          </Collapse>
-        </Card>
-      );
-    }
-  }
-);
+  return (
+    <Card className={classes.card}>
+      <CardHeader
+        title="Ron Swanson"
+        subheader="Legend"
+        avatar={
+          <Avatar>
+            <PersonIcon />
+          </Avatar>
+        }
+      />
+      <CardContent>
+        <Typography variant="caption">Joined 2009</Typography>
+        <Typography>
+          Some filler text about the user. There doesn't have to be a
+          lot - just enough so that the text spans at least two lines.
+        </Typography>
+      </CardContent>
+      <CardActions disableActionSpacing>
+        <IconButton>
+          <ContactMailIcon />
+        </IconButton>
+        <IconButton>
+          <ContactPhoneIcon />
+        </IconButton>
+        <IconButton
+          className={classes.expand}
+          onClick={toggleExpanded}
+        >
+          <ExpandIcon expanded={expanded} />
+        </IconButton>
+      </CardActions>
+      <Collapse in={expanded}>
+        <CardContent>
+          <Typography>
+            Even more filler text about the user. It doesn't fit in
+            the main content area of the card, so this is what the
+            user will see when they click the expand button.
+          </Typography>
+        </CardContent>
+      </Collapse>
+    </Card>
+  );
+}

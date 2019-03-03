@@ -2,13 +2,9 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 
-import {
-  withKnobs,
-  text,
-  boolean,
-  number,
-  array
-} from '@storybook/addon-knobs';
+import withThemeProvider from './withThemeProvider';
+
+import { withKnobs } from '@storybook/addon-knobs';
 
 import {
   MainContent,
@@ -20,6 +16,7 @@ import {
 
 storiesOf('Cards', module)
   .addDecorator(withKnobs)
+  .addDecorator(withThemeProvider)
   .add('Main Content', () => <MainContent />)
   .add('Card Header', () => <CardHeader />)
   .add('Performing Actions', () => <PerformingActions />)

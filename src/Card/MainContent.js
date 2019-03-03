@@ -10,14 +10,14 @@ const styles = theme => ({
     maxWidth: 400
   },
   content: {
-    marginTop: theme.spacing.unit
+    marginTop: theme.spacing(1)
   }
 });
 
-export default withStyles(styles)(({ classes }) => (
+const MainContent = withStyles(styles)(({ classes }) => (
   <Card className={classes.card}>
     <CardContent>
-      <Typography variant="display1">Subject Title</Typography>
+      <Typography variant="h4">Subject Title</Typography>
       <Typography variant="subtitle1">
         A little more about subject
       </Typography>
@@ -29,3 +29,5 @@ export default withStyles(styles)(({ classes }) => (
     </CardContent>
   </Card>
 ));
+
+export default MainContent;

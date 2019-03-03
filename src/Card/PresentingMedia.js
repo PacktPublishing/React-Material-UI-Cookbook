@@ -19,7 +19,7 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(({ classes }) => (
+const PresentingMedia = withStyles(styles)(({ classes }) => (
   <Card className={classes.card}>
     <CardHeader title="Grapefruit" subheader="Red" />
     <CardMedia
@@ -32,3 +32,5 @@ export default withStyles(styles)(({ classes }) => (
     </CardContent>
   </Card>
 ));
+
+export default PresentingMedia;
