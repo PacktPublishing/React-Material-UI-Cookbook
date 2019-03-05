@@ -30,7 +30,7 @@ const ErrorBoundary = withStyles(styles)(
         <Fragment>
           {this.state.error === null && this.props.children}
           <Snackbar
-            open={this.state.error}
+            open={Boolean(this.state.error)}
             message={
               this.state.error !== null && this.state.error.toString()
             }

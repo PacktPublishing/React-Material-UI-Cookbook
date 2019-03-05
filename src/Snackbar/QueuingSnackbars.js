@@ -1,71 +1,64 @@
-import React, { Fragment, Component } from 'react';
-import { compose } from 'recompose';
+import React, { Fragment, useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 
 import CloseIcon from '@material-ui/icons/Close';
 
-const styles = theme => ({});
-
 const withMessage = Wrapped =>
-  class WithMessage extends Component {
-    queue = [];
-    state = { open: false, message: '' };
+  function WithMessage(props) {
+    const [queue, setQueue] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState('');
 
-    message = message => {
-      this.queue.push(message);
-      if (this.queue.length === 1) {
-        this.setState({ open: true, message });
+    const sendMessage = msg => {
+      const newQueue = [...queue, msg];
+      if (newQueue.length === 1) {
+        setOpen(true);
+        setMessage(msg);
       }
     };
 
-    onClose = () => {
-      this.setState({ open: false });
+    const onClose = () => {
+      setOpen(false);
     };
 
-    onExit = () => {
-      const [message, ...rest] = this.queue;
+    const onExit = () => {
+      const [msg, ...rest] = queue;
 
-      if (message) {
-        this.queue = rest;
-        this.setState({ open: true, message });
+      if (msg) {
+        setQueue(rest);
+        setOpen(true);
+        setMessage(msg);
       }
     };
 
-    render() {
-      return (
-        <Fragment>
-          <Wrapped message={this.message} {...this.props} />
-          <Snackbar
-            key={this.state.message}
-            open={this.state.open}
-            message={this.state.message}
-            autoHideDuration={4000}
-            onClose={this.onClose}
-            onExit={this.onExit}
-          />
-        </Fragment>
-      );
-    }
+    return (
+      <Fragment>
+        <Wrapped message={sendMessage} {...props} />
+        <Snackbar
+          key={message}
+          open={open}
+          message={message}
+          autoHideDuration={4000}
+          onClose={onClose}
+          onExit={onExit}
+        />
+      </Fragment>
+    );
   };
 
-export default compose(
-  withStyles(styles),
-  withMessage
-)(
-  class extends Component {
-    counter = 0;
+const QueuingSnackbars = withMessage(({ message }) => {
+  const [counter, setCounter] = useState(0);
 
-    onClick = () => {
-      this.counter += 1;
-      this.props.message(`Message ${this.counter}`);
-    };
+  const onClick = () => {
+    const newCounter = counter + 1;
+    setCounter(newCounter);
+    message(`Message ${newCounter}`);
+  };
 
-    render() {
-      return <Button onClick={this.onClick}>Message</Button>;
-    }
-  }
-);
+  return <Button onClick={onClick}>Message</Button>;
+});
+
+export default QueuingSnackbars;

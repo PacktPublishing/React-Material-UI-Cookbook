@@ -3,6 +3,8 @@ import StoryRouter from 'storybook-react-router';
 
 import { storiesOf } from '@storybook/react';
 
+import withThemeProvider from './withThemeProvider';
+
 import {
   SnackbarContent,
   SnackbarTransitions,
@@ -15,6 +17,7 @@ import {
 
 storiesOf('Snackbar', module)
   .addDecorator(StoryRouter())
+  .addDecorator(withThemeProvider)
   .add('Snackbar Content', () => <SnackbarContent />)
   .add('Snackbar Transitions', () => <SnackbarTransitions />)
   .add('Controlling Visibility With State', () => (

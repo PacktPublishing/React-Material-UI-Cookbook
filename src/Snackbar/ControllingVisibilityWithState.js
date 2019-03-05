@@ -1,37 +1,29 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 
-const styles = theme => ({});
+export default function ControllingVisibilityWithState() {
+  const [open, setOpen] = useState(false);
 
-export default withStyles(styles)(
-  class extends Component {
-    state = { open: false };
+  const showSnackbar = () => {
+    setOpen(true);
+  };
+  const hideSnackbar = () => {
+    setOpen(false);
+  };
 
-    showSnackbar = () => {
-      this.setState({ open: true });
-    };
-
-    hideSnackbar = () => {
-      this.setState({ open: false });
-    };
-
-    render() {
-      return (
-        <Fragment>
-          <Button variant="contained" onClick={this.showSnackbar}>
-            Show Snackbar
-          </Button>
-          <Snackbar
-            open={this.state.open}
-            onClose={this.hideSnackbar}
-            autoHideDuration={5000}
-            message="Visible Snackbar!"
-          />
-        </Fragment>
-      );
-    }
-  }
-);
+  return (
+    <Fragment>
+      <Button variant="contained" onClick={showSnackbar}>
+        Show Snackbar
+      </Button>
+      <Snackbar
+        open={open}
+        onClose={hideSnackbar}
+        autoHideDuration={5000}
+        message="Visible Snackbar!"
+      />
+    </Fragment>
+  );
+}

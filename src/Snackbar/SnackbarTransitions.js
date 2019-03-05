@@ -1,6 +1,5 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -18,94 +17,66 @@ const MySnackbar = ({ transition, direction, ...rest }) => (
   />
 );
 
-const styles = {};
+export default function SnackbarTransitions() {
+  const [first, setFirst] = useState(false);
+  const [second, setSecond] = useState(false);
+  const [third, setThird] = useState(false);
+  const [fourth, setFourth] = useState(false);
 
-export default withStyles(styles)(
-  class extends Component {
-    state = {
-      first: false,
-      second: false,
-      third: false,
-      fourth: false
-    };
-
-    showSnackbar = name => () => {
-      this.setState({ [name]: true });
-    };
-
-    hideSnackbar = name => () => {
-      this.setState({ [name]: false });
-    };
-
-    render() {
-      return (
-        <Fragment>
-          <Grid container spacing={8}>
-            <Grid item>
-              <Button
-                variant="contained"
-                onClick={this.showSnackbar('first')}
-              >
-                Slide Down
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                onClick={this.showSnackbar('second')}
-              >
-                Slide Up
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                onClick={this.showSnackbar('third')}
-              >
-                Grow
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                onClick={this.showSnackbar('fourth')}
-              >
-                Fade
-              </Button>
-            </Grid>
-          </Grid>
-          <MySnackbar
-            open={this.state.first}
-            onClose={this.hideSnackbar('first')}
-            autoHideDuration={5000}
-            message="Slide Down"
-            transition="slide"
-            direction="down"
-          />
-          <MySnackbar
-            open={this.state.second}
-            onClose={this.hideSnackbar('second')}
-            autoHideDuration={5000}
-            message="Slide Up"
-            transition="slide"
-            direction="up"
-          />
-          <MySnackbar
-            open={this.state.third}
-            onClose={this.hideSnackbar('third')}
-            autoHideDuration={5000}
-            message="Grow"
-            transition="grow"
-          />
-          <MySnackbar
-            open={this.state.fourth}
-            onClose={this.hideSnackbar('fourth')}
-            autoHideDuration={5000}
-            message="Fade"
-            transition="fade"
-          />
-        </Fragment>
-      );
-    }
-  }
-);
+  return (
+    <Fragment>
+      <Grid container spacing={8}>
+        <Grid item>
+          <Button variant="contained" onClick={() => setFirst(true)}>
+            Slide Down
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button variant="contained" onClick={() => setSecond(true)}>
+            Slide Up
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button variant="contained" onClick={() => setThird(true)}>
+            Grow
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button variant="contained" onClick={() => setFourth(true)}>
+            Fade
+          </Button>
+        </Grid>
+      </Grid>
+      <MySnackbar
+        open={first}
+        onClose={() => setFirst(false)}
+        autoHideDuration={5000}
+        message="Slide Down"
+        transition="slide"
+        direction="down"
+      />
+      <MySnackbar
+        open={second}
+        onClose={() => setSecond(false)}
+        autoHideDuration={5000}
+        message="Slide Up"
+        transition="slide"
+        direction="up"
+      />
+      <MySnackbar
+        open={third}
+        onClose={() => setThird(false)}
+        autoHideDuration={5000}
+        message="Grow"
+        transition="grow"
+      />
+      <MySnackbar
+        open={fourth}
+        onClose={() => setFourth(false)}
+        autoHideDuration={5000}
+        message="Fade"
+        transition="fade"
+      />
+    </Fragment>
+  );
+}
