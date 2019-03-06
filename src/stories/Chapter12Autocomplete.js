@@ -8,9 +8,9 @@ import {
   HighlightingSearchResults,
   SelectingAutocompleteSuggestions,
   StandaloneChipInput
-} from '../Autocomplete';
+} from '../Chapter12Autocomplete';
 
-storiesOf('Autocomplete', module)
+storiesOf('Chapter 12 Autocomplete', module)
   .add('Building an Autocomplete Component', () => (
     <BuildingAnAutocompleteComponent />
   ))

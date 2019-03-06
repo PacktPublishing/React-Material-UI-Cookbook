@@ -10,9 +10,9 @@ import {
   UsingMenuTransitions,
   CustomizingMenuItems,
   InterchangeableButtons
-} from '../Menu';
+} from '../Chapter16Menu';
 
-storiesOf('Menus', module)
+storiesOf('Chapter 16 Menus', module)
   .addDecorator(withKnobs)
   .addDecorator(StoryRouter())
   .add('Composing Menus With State', () => (

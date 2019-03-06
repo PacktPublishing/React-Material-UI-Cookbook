@@ -9,9 +9,9 @@ import {
   AbstractingContainersAndItems,
   FixedColumnLayout,
   ColumnDirection
-} from '../Grid';
+} from '../Chapter01Grid';
 
-storiesOf('Grid', module)
+storiesOf('Chapter 1 Grid', module)
   .addDecorator(withKnobs)
   .add('Understanding Breakpoints', () => (
     <UnderstandingBreakpoints />

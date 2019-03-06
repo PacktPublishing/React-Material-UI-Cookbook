@@ -9,9 +9,9 @@ import {
   DynamicallyLoadingIcons,
   ThemedIcons,
   InstallingMoreIcons
-} from '../Icon';
+} from '../Chapter18Icon';
 
-storiesOf('Icons', module)
+storiesOf('Chapter 18 Icons', module)
   .addDecorator(withKnobs)
   .add('Icon Color and State', () => (
     <IconColorAndState

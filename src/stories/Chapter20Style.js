@@ -8,9 +8,9 @@ import {
   ExtendingComponentStyles,
   MovingStylesToThemes,
   OtherStylingOptions
-} from '../Style';
+} from '../Chapter20Style';
 
-storiesOf('Styles', module)
+storiesOf('Chapter 20 Styles', module)
   .add('Basic Component Styles', () => <BasicComponentStyles />)
   .add('Scoped Component Styles', () => <ScopedComponentStyles />)
   .add('Extending Component Styles', () => (

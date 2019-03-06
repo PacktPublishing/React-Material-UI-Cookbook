@@ -12,9 +12,9 @@ import {
   PerformingActions,
   PresentingMedia,
   ExpandableCards
-} from '../Card';
+} from '../Chapter08Card';
 
-storiesOf('Cards', module)
+storiesOf('Chapter 8 Cards', module)
   .addDecorator(withKnobs)
   .addDecorator(withThemeProvider)
   .add('Main Content', () => <MainContent />)

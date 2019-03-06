@@ -13,9 +13,9 @@ import {
   ErrorBoundariesAndErrorSnackbars,
   SnackbarsWithActions,
   QueuingSnackbars
-} from '../Snackbar';
+} from '../Chapter09Snackbar';
 
-storiesOf('Snackbar', module)
+storiesOf('Chapter 9 Snackbar', module)
   .addDecorator(StoryRouter())
   .addDecorator(withThemeProvider)
   .add('Snackbar Content', () => <SnackbarContent />)

@@ -14,9 +14,9 @@ import {
   RenderingTabsBasedOnState,
   AbstractingTabContent,
   TabNavigationWithRoutes
-} from '../Tabs';
+} from '../Chapter04Tabs';
 
-storiesOf('Tabs', module)
+storiesOf('Chapter 4 Tabs', module)
   .addDecorator(withKnobs)
   .addDecorator(withThemeProvider)
   .addDecorator(StoryRouter())

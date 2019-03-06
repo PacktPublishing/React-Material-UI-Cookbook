@@ -12,9 +12,9 @@ import {
   NestedLists,
   ListControls,
   ScrollingLists
-} from '../List';
+} from '../Chapter06List';
 
-storiesOf('Lists', module)
+storiesOf('Chapter 6 Lists', module)
   .addDecorator(withThemeProvider)
   .add('Using State to Render List Items', () => (
     <UsingStateToRenderListItems />

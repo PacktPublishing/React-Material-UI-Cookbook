@@ -13,9 +13,9 @@ import {
   DrawerItemNavigation,
   DrawerSections,
   AppBarInteraction
-} from '../Drawer';
+} from '../Chapter03Drawer';
 
-storiesOf('Drawers', module)
+storiesOf('Chapter 3 Drawers', module)
   .addDecorator(withKnobs)
   .addDecorator(StoryRouter())
   .add('Drawer Types', () => (

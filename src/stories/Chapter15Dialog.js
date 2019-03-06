@@ -9,9 +9,9 @@ import {
   APIIntegration,
   FullScreenDialogs,
   ScrollingDialogContent
-} from '../Dialog';
+} from '../Chapter15Dialog';
 
-storiesOf('Dialogs', module)
+storiesOf('Chapter 15 Dialogs', module)
   .add('Collecting Form Input', () => <CollectingFormInput />)
   .add('Confirming Actions', () => <ConfirmingActions />)
   .add('Displaying Alerts', () => <DisplayingAlerts />)

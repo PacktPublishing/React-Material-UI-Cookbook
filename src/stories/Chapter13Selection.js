@@ -10,9 +10,9 @@ import {
   ReplacingCheckboxesWithSwitches,
   ControllingSelectsWithState,
   SelectingMultipleItems
-} from '../Selection';
+} from '../Chapter13Selection';
 
-storiesOf('Selection', module)
+storiesOf('Chapter 13 Selection', module)
   .add('Abstracting Checkbox Groups', () => (
     <AbstractingCheckboxGroups />
   ))

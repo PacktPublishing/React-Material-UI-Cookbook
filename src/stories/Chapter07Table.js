@@ -12,9 +12,9 @@ import {
   SelectingRows,
   RowActions,
   ScrollableTables
-} from '../Table';
+} from '../Chapter07Table';
 
-storiesOf('Tables', module)
+storiesOf('Chapter 7 Tables', module)
   .addDecorator(withKnobs)
   .addDecorator(withThemeProvider)
   .add('Stateful Tables', () => <StatefulTables />)

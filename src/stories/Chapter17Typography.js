@@ -8,9 +8,9 @@ import {
   UsingThemeColors,
   AligningText,
   WrappingText
-} from '../Typography';
+} from '../Chapter17Typography';
 
-storiesOf('Typography', module)
+storiesOf('Chapter 17 Typography', module)
   .addDecorator(withKnobs)
   .add('Types Of Typography', () => <TypesOfTypography />)
   .add('Using Theme Colors', () => (

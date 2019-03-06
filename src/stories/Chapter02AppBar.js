@@ -9,9 +9,9 @@ import {
   FixedPosition,
   ToolbarAbstraction,
   WithNavigation
-} from '../AppBar';
+} from '../Chapter02AppBar';
 
-storiesOf('App Bar', module)
+storiesOf('Chapter 2 App Bar', module)
   .addDecorator(withKnobs)
   .addDecorator(StoryRouter())
   .add('Hide On Scroll', () => <HideOnScroll />)

@@ -15,9 +15,9 @@ import {
   FloatingActions,
   IconButtons,
   ButtonSizes
-} from '../Button';
+} from '../Chapter10Button';
 
-storiesOf('Buttons', module)
+storiesOf('Chapter 10 Buttons', module)
   .addDecorator(StoryRouter())
   .addDecorator(withKnobs)
   .add('Button States', () => <ButtonStates />)

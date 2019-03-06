@@ -10,7 +10,7 @@ import {
   CustomizingThemeProperties,
   NestingThemes,
   ComponentThemeSettings
-} from '../Theme';
+} from '../Chapter19Theme';
 
 const hueOptions = {
   Red: 'red',
@@ -41,7 +41,7 @@ const shadeOptions = {
   step: 100
 };
 
-storiesOf('Themes', module)
+storiesOf('Chapter 19 Themes', module)
   .addDecorator(withKnobs)
   .add('Understanding The Palette', () => (
     <UnderstandingThePalette

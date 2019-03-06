@@ -16,9 +16,9 @@ import {
   MultilineInput,
   InputAdornments,
   InputMasking
-} from '../TextField';
+} from '../Chapter11TextField';
 
-storiesOf('TextField', module)
+storiesOf('Chapter 11 TextField', module)
   .add('Controlling Input With State', () => (
     <ControllingInputWithState />
   ))

@@ -9,9 +9,9 @@ import {
   FormattingPanelHeaders,
   ScrollablePanelContent,
   LazyLoadingPanelContent
-} from '../ExpansionPanel';
+} from '../Chapter05ExpansionPanel';
 
-storiesOf('Expansion Panels', module)
+storiesOf('Chapter 5 Expansion Panels', module)
   .add('Stateful Expansion Panels', () => <StatefulExpansionPanels />)
   .add('Formatting Panel Headers', () => <FormattingPanelHeaders />)
   .add('Scrollable Panel Content', () => <ScrollablePanelContent />)

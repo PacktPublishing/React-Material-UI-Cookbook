@@ -9,9 +9,9 @@ import {
   CombiningDateAndTimeComponents,
   ChangingDateAndTimeFormats,
   IntegratingOtherDateAndTimePackages
-} from '../Pickers';
+} from '../Chapter14Pickers';
 
-storiesOf('Date and Time Pickers', module)
+storiesOf('Chapter 14 Date and Time Pickers', module)
   .add('Using Date Pickers', () => <UsingDatePickers />)
   .add('Using Time Pickers', () => <UsingTimePickers />)
   .add('Setting Initial Date and Time Values', () => (
