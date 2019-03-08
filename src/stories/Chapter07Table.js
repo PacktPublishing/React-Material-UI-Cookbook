@@ -10,8 +10,7 @@ import {
   SortableColumns,
   FilteringRows,
   SelectingRows,
-  RowActions,
-  ScrollableTables
+  RowActions
 } from '../Chapter07Table';
 
 storiesOf('Chapter 7 Tables', module)
@@ -21,5 +20,4 @@ storiesOf('Chapter 7 Tables', module)
   .add('Sortable Columns', () => <SortableColumns />)
   .add('Filtering Rows', () => <FilteringRows />)
   .add('Selecting Rows', () => <SelectingRows />)
-  .add('Row Actions', () => <RowActions />)
-  .add('ScrollableTables', () => <ScrollableTables />);
+  .add('Row Actions', () => <RowActions />);
