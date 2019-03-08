@@ -9,7 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 const styles = theme => ({
   container: {
-    margin: theme.spacing.unit
+    margin: theme.spacing(1)
   }
 });
 
@@ -25,18 +25,18 @@ function buttonColor(parentColor) {
   return 'default';
 }
 
-export default withStyles(styles)(
+const ButtonEmphasis = withStyles(styles)(
   ({ classes, disabled, appBarColor }) => (
     <Grid
       container
       direction="column"
-      spacing={16}
+      spacing={5}
       className={classes.container}
     >
       <Grid item>
         <AppBar color={appBarColor}>
           <Toolbar>
-            <Grid container spacing={16}>
+            <Grid container spacing={2}>
               <Grid item>
                 <Button
                   variant="text"
@@ -72,7 +72,7 @@ export default withStyles(styles)(
         <Typography variant="h6">Default</Typography>
       </Grid>
       <Grid item>
-        <Grid container spacing={16}>
+        <Grid container spacing={2}>
           <Grid item>
             <Button variant="text" disabled={disabled}>
               Text
@@ -94,7 +94,7 @@ export default withStyles(styles)(
         <Typography variant="h6">Primary</Typography>
       </Grid>
       <Grid item>
-        <Grid container spacing={16}>
+        <Grid container spacing={2}>
           <Grid item>
             <Button
               variant="text"
@@ -128,7 +128,7 @@ export default withStyles(styles)(
         <Typography variant="h6">Secondary</Typography>
       </Grid>
       <Grid item>
-        <Grid container spacing={16}>
+        <Grid container spacing={2}>
           <Grid item>
             <Button
               variant="text"
@@ -161,3 +161,5 @@ export default withStyles(styles)(
     </Grid>
   )
 );
+
+export default ButtonEmphasis;

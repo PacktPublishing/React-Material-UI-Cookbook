@@ -6,15 +6,15 @@ import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   container: {
-    margin: theme.spacing.unit
+    margin: theme.spacing(1)
   }
 });
 
-export default withStyles(styles)(({ classes }) => (
+const ButtonVariants = withStyles(styles)(({ classes }) => (
   <Grid
     container
     direction="column"
-    spacing={16}
+    spacing={2}
     className={classes.container}
   >
     <Grid item>
@@ -28,3 +28,5 @@ export default withStyles(styles)(({ classes }) => (
     </Grid>
   </Grid>
 ));
+
+export default ButtonVariants;

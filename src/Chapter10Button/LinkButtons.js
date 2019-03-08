@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   content: {
-    margin: theme.spacing.unit * 2
+    margin: theme.spacing(2)
   }
 });
 
@@ -28,7 +28,7 @@ const NavButton = ({ color, ...props }) => (
   </Switch>
 );
 
-export default withStyles(styles)(({ classes }) => (
+const LinkButtons = withStyles(styles)(({ classes }) => (
   <Grid container direction="column" className={classes.container}>
     <Grid item>
       <Grid container>
@@ -62,3 +62,5 @@ export default withStyles(styles)(({ classes }) => (
     </Grid>
   </Grid>
 ));
+
+export default LinkButtons;

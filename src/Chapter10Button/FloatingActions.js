@@ -29,9 +29,11 @@ const ExtendedFab = withStyles(styles)(({ classes, ...props }) => {
   );
 });
 
-export default ({ fabColor }) => (
+const FloatingActions = ({ fabColor }) => (
   <ExtendedFab color={fabColor}>
     Add
     <AddIcon />
   </ExtendedFab>
 );
+
+export default FloatingActions;

@@ -1,4 +1,4 @@
-export { default as ButtonStates } from './ButtonStates';
+export { default as ButtonVariants } from './ButtonVariants';
 export { default as ButtonEmphasis } from './ButtonEmphasis';
 export { default as LinkButtons } from './LinkButtons';
 export { default as FloatingActions } from './FloatingActions';

@@ -9,7 +9,7 @@ import {
 } from '@storybook/addon-knobs/react';
 
 import {
-  ButtonStates,
+  ButtonVariants,
   ButtonEmphasis,
   LinkButtons,
   FloatingActions,
@@ -20,7 +20,7 @@ import {
 storiesOf('Chapter 10 Buttons', module)
   .addDecorator(StoryRouter())
   .addDecorator(withKnobs)
-  .add('Button States', () => <ButtonStates />)
+  .add('Button Variants', () => <ButtonVariants />)
   .add('Button Emphasis', () => (
     <ButtonEmphasis
       disabled={boolean('Disabled', false)}
