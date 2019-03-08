@@ -66,7 +66,7 @@ const MyToolbar = withStyles(styles)(
                 <MenuItems closeMenu={this.closeMenu} />
               </Menu>
               <Typography
-                variant="title"
+                variant="h6"
                 color="inherit"
                 className={classes.flex}
               >

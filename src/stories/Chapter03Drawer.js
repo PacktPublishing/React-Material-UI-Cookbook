@@ -7,6 +7,8 @@ import StoryRouter from 'storybook-react-router';
 
 import { withKnobs, select } from '@storybook/addon-knobs';
 
+import withThemeProvider from './withThemeProvider';
+
 import {
   DrawerTypes,
   DrawerItemState,
@@ -18,6 +20,7 @@ import {
 storiesOf('Chapter 3 Drawers', module)
   .addDecorator(withKnobs)
   .addDecorator(StoryRouter())
+  .addDecorator(withThemeProvider)
   .add('Drawer Types', () => (
     <DrawerTypes
       variant={select(

@@ -3,6 +3,8 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, select } from '@storybook/addon-knobs';
 
+import withThemeProvider from './withThemeProvider';
+
 import {
   UnderstandingBreakpoints,
   FillingSpace,
@@ -13,6 +15,7 @@ import {
 
 storiesOf('Chapter 1 Grid', module)
   .addDecorator(withKnobs)
+  .addDecorator(withThemeProvider)
   .add('Understanding Breakpoints', () => (
     <UnderstandingBreakpoints />
   ))

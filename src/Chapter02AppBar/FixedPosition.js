@@ -34,7 +34,7 @@ const FixedPosition = withStyles(styles)(({ classes }) => (
           <MenuIcon />
         </IconButton>
         <Typography
-          variant="title"
+          variant="h6"
           color="inherit"
           className={classes.flex}
         >

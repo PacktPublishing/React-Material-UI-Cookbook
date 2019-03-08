@@ -77,7 +77,7 @@ const MyToolbar = withStyles(styles)(
                 <MenuItems />
               </Menu>
               <Typography
-                variant="title"
+                variant="h6"
                 color="inherit"
                 className={classes.flex}
               >
