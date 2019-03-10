@@ -2,11 +2,9 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 import StoryRouter from 'storybook-react-router';
-import {
-  withKnobs,
-  boolean,
-  select
-} from '@storybook/addon-knobs/react';
+import { withKnobs } from '@storybook/addon-knobs';
+
+import withThemeProvider from './withThemeProvider';
 
 import {
   ControllingInputWithState,
@@ -19,6 +17,7 @@ import {
 } from '../Chapter11TextField';
 
 storiesOf('Chapter 11 TextField', module)
+  .addDecorator(withThemeProvider)
   .add('Controlling Input With State', () => (
     <ControllingInputWithState />
   ))

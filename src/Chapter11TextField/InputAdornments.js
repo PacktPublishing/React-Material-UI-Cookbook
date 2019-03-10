@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
@@ -11,48 +11,42 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 
-const styles = theme => ({
-  container: { margin: theme.spacing.unit * 2 }
-});
+const useStyles = makeStyles(theme => ({
+  container: { margin: theme.spacing(2) }
+}));
 
-class PasswordField extends Component {
-  state = { visible: false };
+function PasswordField() {
+  const [visible, setVisible] = useState(false);
 
-  toggleVisibility = () => {
-    this.setState(state => ({ visible: !state.visible }));
+  const toggleVisibility = () => {
+    setVisible(!visible);
   };
 
-  render() {
-    return (
-      <TextField
-        {...this.props}
-        type={this.state.visible ? 'text' : 'password'}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={this.toggleVisibility}>
-                {this.state.visible ? (
-                  <VisibilityIcon />
-                ) : (
-                  <VisibilityOffIcon />
-                )}
-              </IconButton>
-            </InputAdornment>
-          )
-        }}
-      />
-    );
-  }
+  return (
+    <TextField
+      type={visible ? 'text' : 'password'}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <IconButton onClick={toggleVisibility}>
+              {visible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </IconButton>
+          </InputAdornment>
+        )
+      }}
+    />
+  );
 }
 
 const ValidationField = props => {
-  const isEmpty = props.value === '';
-  const isValid = props.isValid(props.value);
+  const { isValid, ...rest } = props;
+  const empty = props.value === '';
+  const valid = isValid(props.value);
   let startAdornment;
 
-  if (isEmpty) {
+  if (empty) {
     startAdornment = null;
-  } else if (isValid) {
+  } else if (valid) {
     startAdornment = (
       <InputAdornment position="start">
         <CheckCircleIcon color="primary" />
@@ -68,47 +62,35 @@ const ValidationField = props => {
 
   return (
     <TextField
-      {...props}
-      error={!isEmpty && !isValid}
+      {...rest}
+      error={!empty && !valid}
       InputProps={{ startAdornment }}
     />
   );
 };
 
-export default withStyles(styles)(
-  class InputAdornments extends Component {
-    state = { password: '', email: '' };
+export default function InputAdornments() {
+  const classes = useStyles();
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
 
-    onPasswordChange = e => {
-      this.setState({ password: e.target.value });
-    };
-
-    onEmailChange = e => {
-      this.setState({ email: e.target.value });
-    };
-
-    render() {
-      const { classes } = this.props;
-
-      return (
-        <Grid container spacing={16} className={classes.container}>
-          <Grid item>
-            <PasswordField
-              label="Password"
-              value={this.state.password}
-              onChange={this.onPasswordChange}
-            />
-          </Grid>
-          <Grid item>
-            <ValidationField
-              label="Email"
-              value={this.state.email}
-              onChange={this.onEmailChange}
-              isValid={v => /\S+@\S+\.\S+/.test(v)}
-            />
-          </Grid>
-        </Grid>
-      );
-    }
-  }
-);
+  return (
+    <Grid container spacing={4} className={classes.container}>
+      <Grid item>
+        <PasswordField
+          label="Password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+      </Grid>
+      <Grid item>
+        <ValidationField
+          label="Email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          isValid={v => /\S+@\S+\.\S+/.test(v)}
+        />
+      </Grid>
+    </Grid>
+  );
+}

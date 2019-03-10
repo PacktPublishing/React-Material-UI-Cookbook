@@ -5,11 +5,11 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
-  container: { margin: theme.spacing.unit * 2 }
+  container: { margin: theme.spacing(2) }
 });
 
-export default withStyles(styles)(({ classes }) => (
-  <Grid container spacing={16} className={classes.container}>
+const PlaceholderAndHelperText = withStyles(styles)(({ classes }) => (
+  <Grid container spacing={4} className={classes.container}>
     <Grid item>
       <TextField label="The Value" />
     </Grid>
@@ -28,3 +28,5 @@ export default withStyles(styles)(({ classes }) => (
     </Grid>
   </Grid>
 ));
+
+export default PlaceholderAndHelperText;

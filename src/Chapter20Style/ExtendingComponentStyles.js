@@ -4,7 +4,7 @@ import { JssProvider, jss } from 'react-jss';
 import {
   withStyles,
   createGenerateClassName
-} from '@material-ui/core/styles';
+} from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 
 const styles = theme => ({

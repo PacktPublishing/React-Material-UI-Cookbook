@@ -1,46 +1,40 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
-const styles = theme => ({});
+const useStyles = makeStyles(theme => ({
+  container: { margin: theme.spacing(2) }
+}));
 
-export default withStyles(styles)(
-  class PasswordFields extends Component {
-    state = { username: '', password: '' };
+export default function PasswordFields() {
+  const classes = useStyles();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-    onChange = e => {
-      this.setState({ [e.target.id]: e.target.value });
-    };
-
-    render() {
-      const { classes } = this.props;
-
-      return (
-        <Grid container spacing={16} className={classes.container}>
-          <Grid item>
-            <TextField
-              id="username"
-              label="Username"
-              autoComplete="username"
-              InputProps={{ name: 'username' }}
-              value={this.state.username}
-              onChange={this.onChange}
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              id="password"
-              type="password"
-              label="Password"
-              autoComplete="current-password"
-              value={this.state.password}
-              onChange={this.onChange}
-            />
-          </Grid>
-        </Grid>
-      );
-    }
-  }
-);
+  return (
+    <Grid container spacing={4} className={classes.container}>
+      <Grid item>
+        <TextField
+          id="username"
+          label="Username"
+          autoComplete="username"
+          InputProps={{ name: 'username' }}
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+        />
+      </Grid>
+      <Grid item>
+        <TextField
+          id="password"
+          type="password"
+          label="Password"
+          autoComplete="current-password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+      </Grid>
+    </Grid>
+  );
+}
