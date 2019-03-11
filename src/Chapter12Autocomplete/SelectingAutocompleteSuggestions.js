@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
+import React, { useState } from 'react';
+import clsx from 'clsx';
 import Select from 'react-select';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
@@ -14,7 +14,7 @@ import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import CancelIcon from '@material-ui/icons/Cancel';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     height: 250
@@ -31,7 +31,7 @@ const styles = theme => ({
     overflow: 'hidden'
   },
   noOptionsMessage: {
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`
+    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`
   },
   singleValue: {
     fontSize: 16
@@ -49,7 +49,7 @@ const styles = theme => ({
     right: 0
   },
   chip: {
-    margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`
+    margin: `${theme.spacing(1) / 2}px ${theme.spacing(1) / 4}px`
   },
   chipFocused: {
     backgroundColor: emphasize(
@@ -59,7 +59,7 @@ const styles = theme => ({
       0.08
     )
   }
-});
+}));
 
 const NoOptionsMessage = props => (
   <Typography
@@ -158,7 +158,7 @@ const MultiValue = props => (
   <Chip
     tabIndex={-1}
     label={props.children}
-    className={classNames(props.selectProps.classes.chip, {
+    className={clsx(props.selectProps.classes.chip, {
       [props.selectProps.classes.chipFocused]: props.isFocused
     })}
     onDelete={props.removeProps.onClick}
@@ -166,85 +166,74 @@ const MultiValue = props => (
   />
 );
 
-class Autocomplete extends React.Component {
-  static defaultProps = {
-    isMulti: true,
-    isClearable: true,
-    components: {
-      Control,
-      Menu,
-      NoOptionsMessage,
-      Option,
-      Placeholder,
-      SingleValue,
-      MultiValue,
-      ValueContainer,
-      IndicatorSeparator,
-      ClearIndicator,
-      DropdownIndicator
-    },
-    options: [
-      { label: 'Boston Bruins', value: 'BOS' },
-      { label: 'Buffalo Sabres', value: 'BUF' },
-      { label: 'Detroit Red Wings', value: 'DET' },
-      { label: 'Florida Panthers', value: 'FLA' },
-      { label: 'Montreal Canadiens', value: 'MTL' },
-      { label: 'Ottawa Senators', value: 'OTT' },
-      { label: 'Tampa Bay Lightning', value: 'TBL' },
-      { label: 'Toronto Maple Leafs', value: 'TOR' },
-      { label: 'Carolina Hurricanes', value: 'CAR' },
-      { label: 'Columbus Blue Jackets', value: 'CBJ' },
-      { label: 'New Jersey Devils', value: 'NJD' },
-      { label: 'New York Islanders', value: 'NYI' },
-      { label: 'New York Rangers', value: 'NYR' },
-      { label: 'Philadelphia Flyers', value: 'PHI' },
-      { label: 'Pittsburgh Penguins', value: 'PIT' },
-      { label: 'Washington Capitals', value: 'WSH' },
-      { label: 'Chicago Blackhawks', value: 'CHI' },
-      { label: 'Colorado Avalanche', value: 'COL' },
-      { label: 'Dallas Stars', value: 'DAL' },
-      { label: 'Minnesota Wild', value: 'MIN' },
-      { label: 'Nashville Predators', value: 'NSH' },
-      { label: 'St. Louis Blues', value: 'STL' },
-      { label: 'Winnipeg Jets', value: 'WPG' },
-      { label: 'Anaheim Ducks', value: 'ANA' },
-      { label: 'Arizona Coyotes', value: 'ARI' },
-      { label: 'Calgary Flames', value: 'CGY' },
-      { label: 'Edmonton Oilers', value: 'EDM' },
-      { label: 'Los Angeles Kings', value: 'LAK' },
-      { label: 'San Jose Sharks', value: 'SJS' },
-      { label: 'Vancouver Canucks', value: 'VAN' },
-      { label: 'Vegas Golden Knights', value: 'VGK' }
-    ]
-  };
+export default function Autocomplete(props) {
+  const classes = useStyles();
+  const [value, setValue] = useState(null);
 
-  state = {
-    value: null
-  };
-
-  onChange = value => {
-    this.setState({ value });
-  };
-
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <div className={classes.root}>
-        <Select
-          value={this.state.value}
-          onChange={this.onChange}
-          textFieldProps={{
-            label: 'Team',
-            InputLabelProps: {
-              shrink: true
-            }
-          }}
-          {...this.props}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className={classes.root}>
+      <Select
+        value={value}
+        onChange={value => setValue(value)}
+        textFieldProps={{
+          label: 'Team',
+          InputLabelProps: {
+            shrink: true
+          }
+        }}
+        {...{ ...props, classes }}
+      />
+    </div>
+  );
 }
 
-export default withStyles(styles)(Autocomplete);
+Autocomplete.defaultProps = {
+  isMulti: true,
+  isClearable: true,
+  components: {
+    Control,
+    Menu,
+    NoOptionsMessage,
+    Option,
+    Placeholder,
+    SingleValue,
+    MultiValue,
+    ValueContainer,
+    IndicatorSeparator,
+    ClearIndicator,
+    DropdownIndicator
+  },
+  options: [
+    { label: 'Boston Bruins', value: 'BOS' },
+    { label: 'Buffalo Sabres', value: 'BUF' },
+    { label: 'Detroit Red Wings', value: 'DET' },
+    { label: 'Florida Panthers', value: 'FLA' },
+    { label: 'Montreal Canadiens', value: 'MTL' },
+    { label: 'Ottawa Senators', value: 'OTT' },
+    { label: 'Tampa Bay Lightning', value: 'TBL' },
+    { label: 'Toronto Maple Leafs', value: 'TOR' },
+    { label: 'Carolina Hurricanes', value: 'CAR' },
+    { label: 'Columbus Blue Jackets', value: 'CBJ' },
+    { label: 'New Jersey Devils', value: 'NJD' },
+    { label: 'New York Islanders', value: 'NYI' },
+    { label: 'New York Rangers', value: 'NYR' },
+    { label: 'Philadelphia Flyers', value: 'PHI' },
+    { label: 'Pittsburgh Penguins', value: 'PIT' },
+    { label: 'Washington Capitals', value: 'WSH' },
+    { label: 'Chicago Blackhawks', value: 'CHI' },
+    { label: 'Colorado Avalanche', value: 'COL' },
+    { label: 'Dallas Stars', value: 'DAL' },
+    { label: 'Minnesota Wild', value: 'MIN' },
+    { label: 'Nashville Predators', value: 'NSH' },
+    { label: 'St. Louis Blues', value: 'STL' },
+    { label: 'Winnipeg Jets', value: 'WPG' },
+    { label: 'Anaheim Ducks', value: 'ANA' },
+    { label: 'Arizona Coyotes', value: 'ARI' },
+    { label: 'Calgary Flames', value: 'CGY' },
+    { label: 'Edmonton Oilers', value: 'EDM' },
+    { label: 'Los Angeles Kings', value: 'LAK' },
+    { label: 'San Jose Sharks', value: 'SJS' },
+    { label: 'Vancouver Canucks', value: 'VAN' },
+    { label: 'Vegas Golden Knights', value: 'VGK' }
+  ]
+};

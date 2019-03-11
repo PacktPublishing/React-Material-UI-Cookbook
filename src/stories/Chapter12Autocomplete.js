@@ -2,6 +2,8 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 
+import withThemeProvider from './withThemeProvider';
+
 import {
   APIDrivenAutocomplete,
   BuildingAnAutocompleteComponent,
@@ -11,6 +13,7 @@ import {
 } from '../Chapter12Autocomplete';
 
 storiesOf('Chapter 12 Autocomplete', module)
+  .addDecorator(withThemeProvider)
   .add('Building an Autocomplete Component', () => (
     <BuildingAnAutocompleteComponent />
   ))

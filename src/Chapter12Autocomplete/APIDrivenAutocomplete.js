@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
+import React, { useState } from 'react';
+import clsx from 'clsx';
 import AsyncSelect from 'react-select/lib/Async';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
@@ -64,7 +64,7 @@ const someAPI = searchText =>
     }, 1000);
   });
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     height: 250
@@ -81,7 +81,7 @@ const styles = theme => ({
     overflow: 'hidden'
   },
   noOptionsMessage: {
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`
+    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`
   },
   singleValue: {
     fontSize: 16
@@ -94,12 +94,12 @@ const styles = theme => ({
   paper: {
     position: 'absolute',
     zIndex: 1,
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
     left: 0,
     right: 0
   },
   chip: {
-    margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`
+    margin: `${theme.spacing(1) / 2}px ${theme.spacing(1) / 4}px`
   },
   chipFocused: {
     backgroundColor: emphasize(
@@ -109,7 +109,7 @@ const styles = theme => ({
       0.08
     )
   }
-});
+}));
 
 const NoOptionsMessage = props => (
   <Typography
@@ -208,7 +208,7 @@ const MultiValue = props => (
   <Chip
     tabIndex={-1}
     label={props.children}
-    className={classNames(props.selectProps.classes.chip, {
+    className={clsx(props.selectProps.classes.chip, {
       [props.selectProps.classes.chipFocused]: props.isFocused
     })}
     onDelete={props.removeProps.onClick}
@@ -228,57 +228,46 @@ const LoadingMessage = props => (
   </Typography>
 );
 
-class Autocomplete extends React.Component {
-  static defaultProps = {
-    cacheOptions: true,
-    defaultOptions: true,
-    loadOptions: someAPI,
-    isMulti: true,
-    isClearable: true,
-    components: {
-      Control,
-      Menu,
-      NoOptionsMessage,
-      Option,
-      Placeholder,
-      SingleValue,
-      MultiValue,
-      ValueContainer,
-      IndicatorSeparator,
-      ClearIndicator,
-      DropdownIndicator,
-      LoadingIndicator,
-      LoadingMessage
-    }
-  };
+export default function Autocomplete(props) {
+  const classes = useStyles();
+  const [value, setValue] = useState(null);
 
-  state = {
-    value: null
-  };
-
-  onChange = value => {
-    this.setState({ value });
-  };
-
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <div className={classes.root}>
-        <AsyncSelect
-          value={this.state.value}
-          onChange={this.onChange}
-          textFieldProps={{
-            label: 'Team',
-            InputLabelProps: {
-              shrink: true
-            }
-          }}
-          {...this.props}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className={classes.root}>
+      <AsyncSelect
+        value={value}
+        onChange={value => setValue(value)}
+        textFieldProps={{
+          label: 'Team',
+          InputLabelProps: {
+            shrink: true
+          }
+        }}
+        {...{ ...props, classes }}
+      />
+    </div>
+  );
 }
 
-export default withStyles(styles)(Autocomplete);
+Autocomplete.defaultProps = {
+  cacheOptions: true,
+  defaultOptions: true,
+  loadOptions: someAPI,
+  isMulti: true,
+  isClearable: true,
+  components: {
+    Control,
+    Menu,
+    NoOptionsMessage,
+    Option,
+    Placeholder,
+    SingleValue,
+    MultiValue,
+    ValueContainer,
+    IndicatorSeparator,
+    ClearIndicator,
+    DropdownIndicator,
+    LoadingIndicator,
+    LoadingMessage
+  }
+};

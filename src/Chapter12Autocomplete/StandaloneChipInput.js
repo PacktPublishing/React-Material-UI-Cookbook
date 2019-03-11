@@ -1,40 +1,31 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import ChipInput from 'material-ui-chip-input';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   chipInput: { minWidth: 300 }
-});
+}));
 
-export default withStyles(styles)(
-  class StandaloneChipInput extends Component {
-    state = { values: [] };
+export default function StandaloneChipInput() {
+  const classes = useStyles();
+  const [values, setValues] = useState([]);
 
-    onAdd = chip => {
-      this.setState(state => ({ values: [...state.values, chip] }));
-    };
+  const onAdd = chip => {
+    setValues([...values, chip]);
+  };
 
-    onDelete = (chip, index) => {
-      this.setState(state => ({
-        values: state.values
-          .slice(0, index)
-          .concat(state.values.slice(index + 1))
-      }));
-    };
+  const onDelete = (chip, index) => {
+    setValues(values.slice(0, index).concat(values.slice(index + 1)));
+  };
 
-    render() {
-      const { classes } = this.props;
-
-      return (
-        <ChipInput
-          className={classes.chipInput}
-          helperText="Type name, hit enter to type another"
-          value={this.state.value}
-          onRequestAdd={this.onAdd}
-          onRequestDelete={this.onDelete}
-        />
-      );
-    }
-  }
-);
+  return (
+    <ChipInput
+      className={classes.chipInput}
+      helperText="Type name, hit enter to type another"
+      value={values}
+      onAdd={onAdd}
+      onDelete={onDelete}
+    />
+  );
+}
