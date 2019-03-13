@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -12,7 +11,7 @@ import BackupOutlined from '@material-ui/icons/BackupOutlined';
 import Build from '@material-ui/icons/Build';
 import BuildOutlined from '@material-ui/icons/BuildOutlined';
 
-const items = [
+const initialItems = [
   {
     name: 'AccountBalance',
     Icon: AccountBalanceOutlined,
@@ -30,42 +29,39 @@ const items = [
   }
 ];
 
-const styles = theme => ({});
+export default function CustomizingCheckboxItems() {
+  const [items, setItems] = useState({});
 
-export default withStyles(styles)(
-  class CustomizingCheckboxItems extends Component {
-    constructor() {
-      super();
-      this.state = items.reduce(
+  useEffect(() => {
+    setItems(
+      initialItems.reduce(
         (state, item) => ({ ...state, [item.name]: false }),
         {}
-      );
-    }
+      )
+    );
+  }, []);
 
-    onChange = event => {
-      this.setState({ [event.target.name]: event.target.checked });
-    };
+  const onChange = e => {
+    setItems({ [e.target.name]: e.target.checked });
+  };
 
-    render() {
-      return (
-        <FormGroup>
-          {items.map(({ name, Icon, CheckedIcon }, index) => (
-            <FormControlLabel
-              key={index}
-              control={
-                <Checkbox
-                  checked={this.state[name]}
-                  onChange={this.onChange}
-                  inputProps={{ name }}
-                  icon={<Icon fontSize="small" />}
-                  checkedIcon={<CheckedIcon fontSize="small" />}
-                />
-              }
-              label={name}
+  return (
+    <FormGroup>
+      {initialItems.map(({ name, Icon, CheckedIcon }, index) => (
+        <FormControlLabel
+          key={index}
+          control={
+            <Checkbox
+              checked={items[name]}
+              onChange={onChange}
+              inputProps={{ name }}
+              icon={<Icon fontSize="small" />}
+              checkedIcon={<CheckedIcon fontSize="small" />}
             />
-          ))}
-        </FormGroup>
-      );
-    }
-  }
-);
+          }
+          label={name}
+        />
+      ))}
+    </FormGroup>
+  );
+}

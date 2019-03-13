@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -16,7 +16,7 @@ const options = [
   { id: 5, label: 'Fifth' }
 ];
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing.unit,
     minWidth: 100,
@@ -25,51 +25,44 @@ const styles = theme => ({
   chip: {
     margin: theme.spacing.unit / 4
   }
-});
+}));
 
-const Selected = withStyles(styles)(({ classes, selected }) =>
-  selected.map(value => (
+function Selected({ selected }) {
+  const classes = useStyles();
+
+  return selected.map(value => (
     <Chip
       key={value}
       label={options.find(option => option.id === value).label}
       className={classes.chip}
     />
-  ))
-);
+  ));
+}
 
-export default withStyles(styles)(
-  class SelectingMultipleItems extends Component {
-    state = {
-      selected: []
-    };
+export default function SelectingMultipleItems() {
+  const classes = useStyles();
+  const [selected, setSelected] = useState([]);
 
-    onChange = event => {
-      this.setState({
-        selected: event.target.value
-      });
-    };
+  const onChange = e => {
+    setSelected(e.target.value);
+  };
 
-    render() {
-      const { classes } = this.props;
-
-      return (
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="multi">Value</InputLabel>
-          <Select
-            multiple
-            value={this.state.selected}
-            onChange={this.onChange}
-            input={<Input id="multi" />}
-            renderValue={selected => <Selected selected={selected} />}
-          >
-            {options.map(option => (
-              <MenuItem key={option.id} value={option.id}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      );
-    }
-  }
-);
+  return (
+    <FormControl className={classes.formControl}>
+      <InputLabel htmlFor="multi">Value</InputLabel>
+      <Select
+        multiple
+        value={selected}
+        onChange={onChange}
+        input={<Input id="multi" />}
+        renderValue={selected => <Selected selected={selected} />}
+      >
+        {options.map(option => (
+          <MenuItem key={option.id} value={option.id}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  );
+}

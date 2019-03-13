@@ -2,6 +2,8 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 
+import withThemeProvider from './withThemeProvider';
+
 import {
   AbstractingCheckboxGroups,
   CustomizingCheckboxItems,
@@ -13,6 +15,7 @@ import {
 } from '../Chapter13Selection';
 
 storiesOf('Chapter 13 Selection', module)
+  .addDecorator(withThemeProvider)
   .add('Abstracting Checkbox Groups', () => (
     <AbstractingCheckboxGroups />
   ))

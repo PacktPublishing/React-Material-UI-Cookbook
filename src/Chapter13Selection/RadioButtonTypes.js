@@ -1,6 +1,5 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -14,65 +13,54 @@ import BusOutlined from '@material-ui/icons/DirectionsBusOutlined';
 import Train from '@material-ui/icons/Train';
 import TrainOutlined from '@material-ui/icons/TrainOutlined';
 
-const styles = theme => ({});
+export default function RadioButtonTypes() {
+  const [value, setValue] = useState('train');
 
-export default withStyles(styles)(
-  class RadioButtonTypes extends Component {
-    state = { value: 'train' };
+  const onChange = e => {
+    setValue(e.target.value);
+  };
 
-    onChange = event => {
-      this.setState({ value: event.target.value });
-    };
-
-    render() {
-      return (
-        <FormControl component="fieldset">
-          <FormLabel component="legend">Travel Mode</FormLabel>
-          <RadioGroup
-            name="travel"
-            value={this.state.value}
-            onChange={this.onChange}
-            row
-          >
-            <FormControlLabel
-              value="car"
-              control={
-                <Radio
-                  color="primary"
-                  icon={<CarOutlined />}
-                  checkedIcon={<Car />}
-                />
-              }
-              label="Car"
-              labelPlacement="bottom"
+  return (
+    <FormControl component="fieldset">
+      <FormLabel component="legend">Travel Mode</FormLabel>
+      <RadioGroup name="travel" value={value} onChange={onChange} row>
+        <FormControlLabel
+          value="car"
+          control={
+            <Radio
+              color="primary"
+              icon={<CarOutlined />}
+              checkedIcon={<Car />}
             />
-            <FormControlLabel
-              value="bus"
-              control={
-                <Radio
-                  color="primary"
-                  icon={<BusOutlined />}
-                  checkedIcon={<Bus />}
-                />
-              }
-              label="Bus"
-              labelPlacement="bottom"
+          }
+          label="Car"
+          labelPlacement="bottom"
+        />
+        <FormControlLabel
+          value="bus"
+          control={
+            <Radio
+              color="primary"
+              icon={<BusOutlined />}
+              checkedIcon={<Bus />}
             />
-            <FormControlLabel
-              value="train"
-              control={
-                <Radio
-                  color="primary"
-                  icon={<TrainOutlined />}
-                  checkedIcon={<Train />}
-                />
-              }
-              label="Train"
-              labelPlacement="bottom"
+          }
+          label="Bus"
+          labelPlacement="bottom"
+        />
+        <FormControlLabel
+          value="train"
+          control={
+            <Radio
+              color="primary"
+              icon={<TrainOutlined />}
+              checkedIcon={<Train />}
             />
-          </RadioGroup>
-        </FormControl>
-      );
-    }
-  }
-);
+          }
+          label="Train"
+          labelPlacement="bottom"
+        />
+      </RadioGroup>
+    </FormControl>
+  );
+}

@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import { default as MaterialRadioGroup } from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -12,8 +11,6 @@ const options = [
   { label: 'Second', value: 'second', disabled: true },
   { label: 'Third', value: 'third' }
 ];
-
-const styles = theme => ({});
 
 const RadioGroup = ({ value, options, name, label, onChange }) => (
   <FormControl component="fieldset">
@@ -36,24 +33,20 @@ const RadioGroup = ({ value, options, name, label, onChange }) => (
   </FormControl>
 );
 
-export default withStyles(styles)(
-  class AbstractingRadioButtonGroups extends Component {
-    state = { value: 'first' };
+export default function AbstractingRadioButtonGroups() {
+  const [value, setValue] = useState('first');
 
-    onChange = event => {
-      this.setState({ value: event.target.value });
-    };
+  const onChange = e => {
+    setValue(e.target.value);
+  };
 
-    render() {
-      return (
-        <RadioGroup
-          value={this.state.value}
-          options={options}
-          name="radio1"
-          label="Pick One"
-          onChange={this.onChange}
-        />
-      );
-    }
-  }
-);
+  return (
+    <RadioGroup
+      value={value}
+      options={options}
+      name="radio1"
+      label="Pick One"
+      onChange={onChange}
+    />
+  );
+}

@@ -1,6 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -12,8 +11,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
-
-const styles = theme => ({});
 
 const CheckboxGroup = ({ values, label, onChange }) => (
   <FormControl component="fieldset">
@@ -35,47 +32,39 @@ const CheckboxGroup = ({ values, label, onChange }) => (
   </FormControl>
 );
 
-export default withStyles(styles)(
-  class AbstractingCheckboxGroups extends Component {
-    state = {
-      values: [
-        { label: 'First', checked: false },
-        { label: 'Second', checked: false },
-        { label: 'Third', checked: false }
-      ]
-    };
+export default function AbstractingCheckboxGroups() {
+  const [values, setValues] = useState([
+    { label: 'First', checked: false },
+    { label: 'Second', checked: false },
+    { label: 'Third', checked: false }
+  ]);
 
-    onChange = index => ({ target: { checked } }) => {
-      this.setState(state => {
-        const values = [...state.values];
-        const value = values[index];
+  const onChange = index => ({ target: { checked } }) => {
+    const newValues = [...values];
+    const value = values[index];
 
-        values[index] = { ...value, checked };
+    newValues[index] = { ...value, checked };
 
-        return { values };
-      });
-    };
+    setValues(newValues);
+  };
 
-    render() {
-      return (
-        <Fragment>
-          <CheckboxGroup
-            label="Choices"
-            values={this.state.values}
-            onChange={this.onChange}
-          />
-          <Typography variant="h6">Selection</Typography>
-          <List>
-            {this.state.values
-              .filter(value => value.checked)
-              .map((value, index) => (
-                <ListItem key={index}>
-                  <ListItemText>{value.label}</ListItemText>
-                </ListItem>
-              ))}
-          </List>
-        </Fragment>
-      );
-    }
-  }
-);
+  return (
+    <Fragment>
+      <CheckboxGroup
+        label="Choices"
+        values={values}
+        onChange={onChange}
+      />
+      <Typography variant="h6">Selection</Typography>
+      <List>
+        {values
+          .filter(value => value.checked)
+          .map((value, index) => (
+            <ListItem key={index}>
+              <ListItemText>{value.label}</ListItemText>
+            </ListItem>
+          ))}
+      </List>
+    </Fragment>
+  );
+}

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -40,43 +40,34 @@ const SwitchGroup = withStyles(styles)(
   }
 );
 
-export default withStyles(styles)(
-  class ReplacingCheckboxesWithSwitches extends Component {
-    state = {
-      values: [
-        { label: 'First', checked: false },
-        { label: 'Second', checked: false },
-        { label: 'Third', checked: false }
-      ]
-    };
+export default function ReplacingCheckboxesWithSwitches() {
+  const [values, setValues] = useState([
+    { label: 'First', checked: false },
+    { label: 'Second', checked: false },
+    { label: 'Third', checked: false }
+  ]);
 
-    onChange = index => ({ target: { checked } }) => {
-      this.setState(state => {
-        const values = [...state.values];
-        const value = values[index];
+  const onChange = index => ({ target: { checked } }) => {
+    const newValues = [...values];
+    const value = values[index];
 
-        values[index] = { ...value, checked };
+    newValues[index] = { ...value, checked };
+    setValues(newValues);
+  };
 
-        return { values };
-      });
-    };
-
-    render() {
-      return (
-        <Fragment>
-          <SwitchGroup
-            label="Switch Choices"
-            values={this.state.values}
-            onChange={this.onChange}
-          />
-          <SwitchGroup
-            label="Checkbox Choices"
-            values={this.state.values}
-            onChange={this.onChange}
-            checkbox
-          />
-        </Fragment>
-      );
-    }
-  }
-);
+  return (
+    <Fragment>
+      <SwitchGroup
+        label="Switch Choices"
+        values={values}
+        onChange={onChange}
+      />
+      <SwitchGroup
+        label="Checkbox Choices"
+        values={values}
+        onChange={onChange}
+        checkbox
+      />
+    </Fragment>
+  );
+}
