@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 
 import {
@@ -11,47 +11,36 @@ import {
   DatePicker
 } from 'material-ui-pickers';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   grid: {
     width: '65%'
   }
-});
+}));
 
-export default withStyles(styles)(
-  class IntegratingWithOtherDateAndTimePackages extends Component {
-    state = {
-      datetime: new Date()
-    };
+export default function IntegratingWithOtherDateAndTimePackages() {
+  const classes = useStyles();
+  const [datetime, setDatetime] = useState(new Date());
 
-    onChange = datetime => {
-      this.setState({ datetime });
-    };
+  const onChange = datetime => {
+    setDatetime(datetime);
+  };
 
-    render() {
-      const { classes } = this.props;
-
-      return (
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <Grid
-            container
-            className={classes.grid}
-            justify="space-around"
-          >
-            <DatePicker
-              margin="normal"
-              label="Date picker"
-              value={this.state.datetime}
-              onChange={this.onChange}
-            />
-            <TimePicker
-              margin="normal"
-              label="Time picker"
-              value={this.state.datetime}
-              onChange={this.onChange}
-            />
-          </Grid>
-        </MuiPickersUtilsProvider>
-      );
-    }
-  }
-);
+  return (
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <Grid container className={classes.grid} justify="space-around">
+        <DatePicker
+          margin="normal"
+          label="Date picker"
+          value={datetime}
+          onChange={onChange}
+        />
+        <TimePicker
+          margin="normal"
+          label="Time picker"
+          value={datetime}
+          onChange={onChange}
+        />
+      </Grid>
+    </MuiPickersUtilsProvider>
+  );
+}

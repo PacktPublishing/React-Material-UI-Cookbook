@@ -1,11 +1,11 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   textField: { margin: theme.spacing.unit }
-});
+}));
 
 function formatDate(date) {
   const year = date.getFullYear();
@@ -54,60 +54,53 @@ const TimePicker = ({ time, ...props }) => (
   />
 );
 
-export default withStyles(styles)(
-  class SettingInitialDateAndTimeValues extends Component {
-    state = { datetime: new Date() };
+export default function SettingInitialDateAndTimeValues() {
+  const classes = useStyles();
+  const [datetime, setDatetime] = useState(new Date());
 
-    onChangeDate = e => {
-      if (!e.target.value) {
-        return;
-      }
-
-      const [year, month, day] = e.target.value
-        .split('-')
-        .map(n => Number(n));
-
-      const datetime = new Date(this.state.datetime);
-      datetime.setYear(year);
-      datetime.setMonth(month - 1);
-      datetime.setDate(day);
-
-      this.setState({ datetime });
-    };
-
-    onChangeTime = e => {
-      const [hours, minutes] = e.target.value
-        .split(':')
-        .map(n => Number(n));
-
-      console.log(e.target.value);
-
-      const datetime = new Date(this.state.datetime);
-      datetime.setHours(hours);
-      datetime.setMinutes(minutes);
-
-      this.setState({ datetime });
-    };
-
-    render() {
-      const { classes } = this.props;
-
-      return (
-        <Fragment>
-          <DatePicker
-            date={this.state.datetime}
-            onChange={this.onChangeDate}
-            label="My Date"
-            className={classes.textField}
-          />
-          <TimePicker
-            time={this.state.datetime}
-            onChange={this.onChangeTime}
-            label="My Time"
-            className={classes.textField}
-          />
-        </Fragment>
-      );
+  const onChangeDate = e => {
+    if (!e.target.value) {
+      return;
     }
-  }
-);
+
+    const [year, month, day] = e.target.value
+      .split('-')
+      .map(n => Number(n));
+
+    const newDatetime = new Date(datetime);
+    newDatetime.setYear(year);
+    newDatetime.setMonth(month - 1);
+    newDatetime.setDate(day);
+
+    setDatetime(newDatetime);
+  };
+
+  const onChangeTime = e => {
+    const [hours, minutes] = e.target.value
+      .split(':')
+      .map(n => Number(n));
+
+    const newDatetime = new Date(datetime);
+    newDatetime.setHours(hours);
+    newDatetime.setMinutes(minutes);
+
+    setDatetime(newDatetime);
+  };
+
+  return (
+    <Fragment>
+      <DatePicker
+        date={datetime}
+        onChange={onChangeDate}
+        label="My Date"
+        className={classes.textField}
+      />
+      <TimePicker
+        time={datetime}
+        onChange={onChangeTime}
+        label="My Time"
+        className={classes.textField}
+      />
+    </Fragment>
+  );
+}

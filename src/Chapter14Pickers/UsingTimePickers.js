@@ -1,11 +1,11 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 
-const styles = theme => ({
-  textField: { margin: theme.spacing.unit }
-});
+const useStyles = makeStyles(theme => ({
+  textField: { margin: theme.spacing(1) }
+}));
 
 const TimePicker = ({ time, ...props }) => (
   <TextField
@@ -21,36 +21,31 @@ const TimePicker = ({ time, ...props }) => (
   />
 );
 
-export default withStyles(styles)(
-  class UsingTimePickers extends Component {
-    state = { time: '' };
+export default function UsingTimePickers() {
+  const classes = useStyles();
+  const [time, setTime] = useState('');
 
-    onChange = e => {
-      this.setState({ time: e.target.value });
-    };
+  const onChange = e => {
+    setTime(e.target.value);
+  };
 
-    render() {
-      const { classes } = this.props;
-
-      return (
-        <Fragment>
-          <TimePicker
-            time={this.state.time}
-            onChange={this.onChange}
-            label="My Time"
-            className={classes.textField}
-          />
-          <TextField
-            value={this.state.time}
-            label="Updated Time Value"
-            className={classes.textField}
-            InputLabelProps={{
-              shrink: true
-            }}
-            InputProps={{ readOnly: true }}
-          />
-        </Fragment>
-      );
-    }
-  }
-);
+  return (
+    <Fragment>
+      <TimePicker
+        time={time}
+        onChange={onChange}
+        label="My Time"
+        className={classes.textField}
+      />
+      <TextField
+        value={time}
+        label="Updated Time Value"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true
+        }}
+        InputProps={{ readOnly: true }}
+      />
+    </Fragment>
+  );
+}

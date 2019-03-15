@@ -7,8 +7,5 @@ export {
   default as CombiningDateAndTimeComponents
 } from './CombiningDateAndTimeComponents';
 export {
-  default as ChangingDateAndTimeFormats
-} from './ChangingDateAndTimeFormats';
-export {
   default as IntegratingOtherDateAndTimePackages
 } from './IntegratingOtherDateAndTimePackages';

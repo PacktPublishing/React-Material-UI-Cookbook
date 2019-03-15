@@ -1,11 +1,11 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 
-const styles = theme => ({
-  textField: { margin: theme.spacing.unit }
-});
+const useStyles = makeStyles(theme => ({
+  textField: { margin: theme.spacing(1) }
+}));
 
 function formatDate(date) {
   const year = date.getFullYear();
@@ -30,39 +30,33 @@ const DatePicker = ({ date, ...props }) => (
   />
 );
 
-export default withStyles(styles)(
-  class UsingDatePickers extends Component {
-    state = { date: '' };
+export default function UsingDatePickers() {
+  const classes = useStyles();
+  const [date, setDate] = useState('');
 
-    onChange = e => {
-      this.setState({ date: new Date(`${e.target.value}T00:00:00`) });
-    };
+  const onChange = e => {
+    setDate(new Date(`${e.target.value}T00:00:00`));
+  };
 
-    render() {
-      const { classes } = this.props;
-      const dateFormatted = this.state.date
-        ? this.state.date.toLocaleDateString()
-        : '';
+  const dateFormatted = date ? date.toLocaleDateString() : '';
 
-      return (
-        <Fragment>
-          <DatePicker
-            date={this.state.date}
-            onChange={this.onChange}
-            label="My Date"
-            className={classes.textField}
-          />
-          <TextField
-            value={dateFormatted}
-            label="Updated Date Value"
-            className={classes.textField}
-            InputLabelProps={{
-              shrink: true
-            }}
-            InputProps={{ readOnly: true }}
-          />
-        </Fragment>
-      );
-    }
-  }
-);
+  return (
+    <Fragment>
+      <DatePicker
+        date={date}
+        onChange={onChange}
+        label="My Date"
+        className={classes.textField}
+      />
+      <TextField
+        value={dateFormatted}
+        label="Updated Date Value"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true
+        }}
+        InputProps={{ readOnly: true }}
+      />
+    </Fragment>
+  );
+}

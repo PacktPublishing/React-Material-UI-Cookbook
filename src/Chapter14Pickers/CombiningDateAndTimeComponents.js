@@ -1,11 +1,11 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 
-const styles = theme => ({
-  textField: { margin: theme.spacing.unit }
-});
+const useStyles = makeStyles(theme => ({
+  textField: { margin: theme.spacing(1) }
+}));
 
 const formatDate = date =>
   date
@@ -29,25 +29,20 @@ const DateTimePicker = ({ date, ...props }) => (
   />
 );
 
-export default withStyles(styles)(
-  class CombiningDateAndTimeComponents extends Component {
-    state = { datetime: new Date() };
+export default function CombiningDateAndTimeComponents() {
+  const classes = useStyles();
+  const [datetime, setDatetime] = useState(new Date());
 
-    onChangeDate = e => {
-      this.setState({ datetime: new Date(`${e.target.value}Z`) });
-    };
+  const onChangeDate = e => {
+    setDatetime(new Date(`${e.target.value}Z`));
+  };
 
-    render() {
-      const { classes } = this.props;
-
-      return (
-        <DateTimePicker
-          date={formatDate(this.state.datetime)}
-          onChange={this.onChangeDate}
-          label="My Date/Time"
-          className={classes.textField}
-        />
-      );
-    }
-  }
-);
+  return (
+    <DateTimePicker
+      date={formatDate(datetime)}
+      onChange={onChangeDate}
+      label="My Date/Time"
+      className={classes.textField}
+    />
+  );
+}
