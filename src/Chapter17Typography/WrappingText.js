@@ -8,8 +8,8 @@ import Paper from '@material-ui/core/Paper';
 const styles = theme => ({
   paper: {
     minWidth: 300,
-    padding: theme.spacing.unit * 2,
-    margin: theme.spacing.unit * 3
+    padding: theme.spacing(2),
+    margin: theme.spacing(3)
   },
   fixedHeight: { height: 100 },
   responsive: {
@@ -21,7 +21,7 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(({ classes }) => (
+const WrappingText = withStyles(styles)(({ classes }) => (
   <Fragment>
     <Paper className={classes.paper}>
       <Typography noWrap>
@@ -42,3 +42,5 @@ export default withStyles(styles)(({ classes }) => (
     </Paper>
   </Fragment>
 ));
+
+export default WrappingText;

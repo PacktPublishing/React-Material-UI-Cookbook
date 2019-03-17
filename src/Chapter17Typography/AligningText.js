@@ -9,7 +9,7 @@ const styles = theme => ({
   paper: {
     width: 200,
     height: 200,
-    padding: theme.spacing.unit
+    padding: theme.spacing(1)
   }
 });
 
@@ -30,8 +30,10 @@ const MyTypography = ({ ...props }) => (
   <Grid item component={Typography} {...props} />
 );
 
-export default ({ ...props }) => (
+const AligningText = ({ ...props }) => (
   <MyPaper {...props}>
     <MyTypography {...props}>Text</MyTypography>
   </MyPaper>
 );
+
+export default AligningText;

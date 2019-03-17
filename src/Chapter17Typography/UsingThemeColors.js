@@ -2,20 +2,8 @@ import React, { Fragment } from 'react';
 
 import Typography from '@material-ui/core/Typography';
 
-export default ({ color }) => (
+const UsingThemeColors = ({ color }) => (
   <Fragment>
-    <Typography variant="display1" color={color}>
-      display1 variant
-    </Typography>
-    <Typography variant="display2" color={color}>
-      display2 variant
-    </Typography>
-    <Typography variant="display3" color={color}>
-      display3 variant
-    </Typography>
-    <Typography variant="display4" color={color}>
-      display4 variant
-    </Typography>
     <Typography variant="h1" color={color}>
       h1 variant
     </Typography>
@@ -46,15 +34,6 @@ export default ({ color }) => (
     <Typography variant="body2" color={color}>
       body2 variant
     </Typography>
-    <Typography variant="headline" color={color}>
-      headline variant
-    </Typography>
-    <Typography variant="title" color={color}>
-      title variant
-    </Typography>
-    <Typography variant="subheading" color={color}>
-      subheading variant
-    </Typography>
     <Typography variant="caption" color={color}>
       caption variant
     </Typography>
@@ -66,3 +45,5 @@ export default ({ color }) => (
     </Typography>
   </Fragment>
 );
+
+export default UsingThemeColors;

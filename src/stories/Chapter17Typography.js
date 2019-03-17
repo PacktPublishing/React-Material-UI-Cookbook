@@ -35,7 +35,7 @@ storiesOf('Chapter 17 Typography', module)
       horizontalAlign={select(
         'Horizontal Alignment',
         { Left: 'flex-start', Center: 'center', Right: 'flex-end' },
-        'left'
+        'flex-start'
       )}
       verticalAlign={select(
         'Vertical Alignment',
