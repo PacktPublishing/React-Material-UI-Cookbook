@@ -10,6 +10,3 @@ export {
 export {
   default as CustomizingMenuItems
 } from './CustomizingMenuItems';
-export {
-  default as InterchangeableButtons
-} from './InterchangeableButtons';

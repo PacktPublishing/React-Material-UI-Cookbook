@@ -1,16 +1,16 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuIcon from '@material-ui/icons/Menu';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   rightIcon: {
     marginLeft: theme.spacing.unit
   }
-});
+}));
 
 const MyMenu = ({ items, onClose, anchorEl }) => (
   <Menu
@@ -30,60 +30,51 @@ const MyMenu = ({ items, onClose, anchorEl }) => (
   </Menu>
 );
 
-export default withStyles(styles)(
-  class ComposingMenusWithState extends Component {
-    constructor() {
-      super();
-      this.state = {
-        anchorEl: null,
-        items: [
-          { name: 'Enable Fourth', onClick: this.toggleFourth },
-          { name: 'Second', onClick: this.onClose },
-          { name: 'Third', onClick: this.onClose },
-          { name: 'Fourth', onClick: this.onClose, disabled: true }
-        ]
+export default function ComposingMenusWithState() {
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [items, setItems] = useState([
+    { name: 'Enable Fourth' },
+    { name: 'Second', onClick: onClose },
+    { name: 'Third', onClick: onClose },
+    { name: 'Fourth', onClick: onClose, disabled: true }
+  ]);
+
+  useEffect(() => {
+    const toggleFourth = () => {
+      let newItems = [...items];
+
+      newItems[3] = { ...items[3], disabled: !items[3].disabled };
+      newItems[0] = {
+        ...items[0],
+        name: newItems[3].disabled
+          ? 'Enable Fourth'
+          : 'Disable Fourth'
       };
-    }
 
-    toggleFourth = () => {
-      this.setState(state => {
-        const items = [...state.items];
-
-        items[3] = { ...items[3], disabled: !items[3].disabled };
-        items[0] = {
-          ...items[0],
-          name: items[3].disabled ? 'Enable Fourth' : 'Disable Fourth'
-        };
-
-        return { items };
-      });
+      setItems(newItems);
     };
 
-    onOpen = event => {
-      this.setState({ anchorEl: event.currentTarget });
-    };
+    const newItems = [...items];
+    newItems[0] = { ...items[0], onClick: toggleFourth };
+    setItems(newItems);
+  });
 
-    onClose = () => {
-      this.setState({ anchorEl: null });
-    };
+  const onOpen = e => {
+    setAnchorEl(e.currentTarget);
+  };
 
-    render() {
-      const { classes } = this.props;
-      const { anchorEl } = this.state;
+  const onClose = () => {
+    setAnchorEl(null);
+  };
 
-      return (
-        <Fragment>
-          <Button onClick={this.onOpen}>
-            Menu
-            <MenuIcon className={classes.rightIcon} />
-          </Button>
-          <MyMenu
-            items={this.state.items}
-            onClose={this.onClose}
-            anchorEl={anchorEl}
-          />
-        </Fragment>
-      );
-    }
-  }
-);
+  return (
+    <Fragment>
+      <Button onClick={onOpen}>
+        Menu
+        <MenuIcon className={classes.rightIcon} />
+      </Button>
+      <MyMenu items={items} onClose={onClose} anchorEl={anchorEl} />
+    </Fragment>
+  );
+}

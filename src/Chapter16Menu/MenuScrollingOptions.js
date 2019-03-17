@@ -1,6 +1,6 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -25,58 +25,51 @@ const items = [
 
 const ITEM_HEIGHT = 48;
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   menuPaper: { maxHeight: ITEM_HEIGHT * 4.5, width: 200 }
-});
+}));
 
-export default withStyles(styles)(
-  class MenuScrollingOptions extends Component {
-    state = {
-      anchorEl: null,
-      selected: ''
-    };
+export default function MenuScrollingOptions() {
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selected, setSelected] = useState('');
 
-    onOpen = event => {
-      this.setState({ anchorEl: event.currentTarget });
-    };
+  const onOpen = e => {
+    setAnchorEl(e.currentTarget);
+  };
 
-    onClose = () => {
-      this.setState({ anchorEl: null });
-    };
+  const onClose = () => {
+    setAnchorEl(null);
+  };
 
-    onSelect = selected => () => {
-      this.setState({ selected, anchorEl: null });
-    };
+  const onSelect = selected => () => {
+    setSelected(selected);
+    setAnchorEl(null);
+  };
 
-    render() {
-      const { classes } = this.props;
-      const { anchorEl } = this.state;
-
-      return (
-        <Fragment>
-          <IconButton onClick={this.onOpen}>
-            <MenuIcon />
-          </IconButton>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={this.onClose}
-            PaperProps={{
-              classes: { elevation8: classes.menuPaper }
-            }}
+  return (
+    <Fragment>
+      <IconButton onClick={onOpen}>
+        <MenuIcon />
+      </IconButton>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={onClose}
+        PaperProps={{
+          classes: { elevation8: classes.menuPaper }
+        }}
+      >
+        {items.map((item, index) => (
+          <MenuItem
+            key={index}
+            selected={index === selected}
+            onClick={onSelect(index)}
           >
-            {items.map((item, index) => (
-              <MenuItem
-                key={index}
-                selected={index === this.state.selected}
-                onClick={this.onSelect(index)}
-              >
-                {item}
-              </MenuItem>
-            ))}
-          </Menu>
-        </Fragment>
-      );
-    }
-  }
-);
+            {item}
+          </MenuItem>
+        ))}
+      </Menu>
+    </Fragment>
+  );
+}

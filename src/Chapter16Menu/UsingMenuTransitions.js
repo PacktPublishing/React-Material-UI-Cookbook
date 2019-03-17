@@ -1,6 +1,6 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,56 +11,51 @@ import Slide from '@material-ui/core/Slide';
 
 import MenuIcon from '@material-ui/icons/Menu';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   rightIcon: {
-    marginLeft: theme.spacing.unit
+    marginLeft: theme.spacing(1)
   }
-});
+}));
 
-export default withStyles(styles)(
-  class UsingMenuTransitions extends Component {
-    state = {
-      anchorEl: null
-    };
+export default function UsingMenuTransitions({
+  transition,
+  duration
+}) {
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
 
-    onOpen = event => {
-      this.setState({ anchorEl: event.currentTarget });
-    };
+  const onOpen = e => {
+    setAnchorEl(e.currentTarget);
+  };
 
-    onClose = () => {
-      this.setState({ anchorEl: null });
-    };
+  const onClose = () => {
+    setAnchorEl(null);
+  };
 
-    render() {
-      const { classes, transition, duration } = this.props;
-      const { anchorEl } = this.state;
-
-      return (
-        <Fragment>
-          <Button onClick={this.onOpen}>
-            Menu
-            <MenuIcon className={classes.rightIcon} />
-          </Button>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={this.onClose}
-            transitionDuration={duration}
-            TransitionComponent={
-              {
-                collapse: Collapse,
-                fade: Fade,
-                grow: Grow,
-                slide: Slide
-              }[transition]
-            }
-          >
-            <MenuItem onClick={this.onClose}>Profile</MenuItem>
-            <MenuItem onClick={this.onClose}>My account</MenuItem>
-            <MenuItem onClick={this.onClose}>Logout</MenuItem>
-          </Menu>
-        </Fragment>
-      );
-    }
-  }
-);
+  return (
+    <Fragment>
+      <Button onClick={onOpen}>
+        Menu
+        <MenuIcon className={classes.rightIcon} />
+      </Button>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={onClose}
+        transitionDuration={duration}
+        TransitionComponent={
+          {
+            collapse: Collapse,
+            fade: Fade,
+            grow: Grow,
+            slide: Slide
+          }[transition]
+        }
+      >
+        <MenuItem onClick={onClose}>Profile</MenuItem>
+        <MenuItem onClick={onClose}>My account</MenuItem>
+        <MenuItem onClick={onClose}>Logout</MenuItem>
+      </Menu>
+    </Fragment>
+  );
+}
