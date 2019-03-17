@@ -2,6 +2,8 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 
+import withThemeProvider from './withThemeProvider';
+
 import {
   CollectingFormInput,
   ConfirmingActions,
@@ -12,6 +14,7 @@ import {
 } from '../Chapter15Dialog';
 
 storiesOf('Chapter 15 Dialogs', module)
+  .addDecorator(withThemeProvider)
   .add('Collecting Form Input', () => <CollectingFormInput />)
   .add('Confirming Actions', () => <ConfirmingActions />)
   .add('Displaying Alerts', () => <DisplayingAlerts />)

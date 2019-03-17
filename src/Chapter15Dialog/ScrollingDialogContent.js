@@ -1,6 +1,5 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -11,8 +10,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-
-const styles = theme => ({});
 
 const id = (function*() {
   let id = 0;
@@ -45,77 +42,63 @@ const rows = new Array(50)
     []
   );
 
-export default withStyles(styles)(
-  class FullScreenDialogs extends Component {
-    state = { open: false };
+export default function FullScreenDialogs() {
+  const [open, setOpen] = useState(false);
 
-    onOpen = () => {
-      this.setState({ open: true });
-    };
+  const onOpen = () => {
+    setOpen(true);
+  };
 
-    onClose = () => {
-      this.setState({ open: false });
-    };
+  const onClose = () => {
+    setOpen(false);
+  };
 
-    render() {
-      const { classes } = this.props;
-
-      return (
-        <Fragment>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={this.onOpen}
-          >
-            Export Data
+  return (
+    <Fragment>
+      <Button variant="outlined" color="primary" onClick={onOpen}>
+        Export Data
+      </Button>
+      <Dialog open={open} onClose={onClose}>
+        <DialogTitle>Desserts</DialogTitle>
+        <DialogContent>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Dessert (100g serving)</TableCell>
+                <TableCell align="right">Calories</TableCell>
+                <TableCell align="right">Fat (g)</TableCell>
+                <TableCell align="right">Carbs (g)</TableCell>
+                <TableCell align="right">Protein (g)</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map(row => (
+                <TableRow key={row.id}>
+                  <TableCell component="th" scope="row">
+                    {row.name}
+                  </TableCell>
+                  <TableCell align="right">{row.calories}</TableCell>
+                  <TableCell align="right">{row.fat}</TableCell>
+                  <TableCell align="right">{row.carbs}</TableCell>
+                  <TableCell align="right">{row.protein}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onClose} color="primary">
+            Cancel
           </Button>
-          <Dialog open={this.state.open} onClose={this.onClose}>
-            <DialogTitle>Desserts</DialogTitle>
-            <DialogContent>
-              <Table className={classes.table}>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Dessert (100g serving)</TableCell>
-                    <TableCell align="right">Calories</TableCell>
-                    <TableCell align="right">Fat (g)</TableCell>
-                    <TableCell align="right">Carbs (g)</TableCell>
-                    <TableCell align="right">Protein (g)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows.map(row => (
-                    <TableRow key={row.id}>
-                      <TableCell component="th" scope="row">
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">
-                        {row.calories}
-                      </TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">
-                        {row.protein}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.onClose} color="primary">
-                Cancel
-              </Button>
-              <Button
-                variant="contained"
-                onClick={this.onClose}
-                color="primary"
-              >
-                Export
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </Fragment>
-      );
-    }
-  }
-);
+          <Button
+            variant="contained"
+            onClick={onClose}
+            color="primary"
+          >
+            Export
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Fragment>
+  );
+}

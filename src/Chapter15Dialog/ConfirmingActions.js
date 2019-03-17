@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -7,50 +7,48 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 
-export default class ConfirmingActions extends Component {
-  state = { open: false };
+export default function ConfirmingActions() {
+  const [open, setOpen] = useState(false);
 
-  onShowConfirm = () => {
-    this.setState({ open: true });
+  const onShowConfirm = () => {
+    setOpen(true);
   };
 
-  onConfirm = () => {
-    this.setState({ open: false });
+  const onConfirm = () => {
+    setOpen(false);
   };
 
-  render() {
-    return (
-      <Fragment>
-        <Button color="primary" onClick={this.onShowConfirm}>
-          Confirm Action
-        </Button>
-        <Dialog
-          disableBackdropClick
-          disableEscapeKeyDown
-          maxWidth="xs"
-          open={this.state.open}
-        >
-          <DialogTitle>Confirm Delete Asset</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to delete the asset? This action
-              cannot be undone.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.onDialogClose} color="primary">
-              Cancel
-            </Button>
-            <Button
-              variant="contained"
-              onClick={this.onConfirm}
-              color="primary"
-            >
-              Confirm
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Fragment>
-    );
-  }
+  return (
+    <Fragment>
+      <Button color="primary" onClick={onShowConfirm}>
+        Confirm Action
+      </Button>
+      <Dialog
+        disableBackdropClick
+        disableEscapeKeyDown
+        maxWidth="xs"
+        open={open}
+      >
+        <DialogTitle>Confirm Delete Asset</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete the asset? This action
+            cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onConfirm} color="primary">
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            onClick={onConfirm}
+            color="primary"
+          >
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Fragment>
+  );
 }

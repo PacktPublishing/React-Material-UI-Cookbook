@@ -1,6 +1,6 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useState } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -11,10 +11,10 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   dialog: { minHeight: 200 },
   select: { width: '100%' }
-});
+}));
 
 const fetchItems = () =>
   new Promise(resolve => {
@@ -33,84 +33,79 @@ const MaybeLinearProgress = ({ loading, ...props }) =>
 const MaybeSelect = ({ loading, ...props }) =>
   loading ? null : <Select {...props} />;
 
-export default withStyles(styles)(
-  class APIIntegration extends Component {
-    state = {
-      open: false,
-      loading: false,
-      items: [],
-      selected: ''
-    };
+export default function APIIntegration() {
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [items, setItems] = useState([]);
+  const [selected, setSelected] = useState('');
 
-    onShowItems = () => {
-      this.setState({ open: true, loading: true });
+  const onShowItems = () => {
+    setOpen(true);
+    setLoading(true);
 
-      fetchItems().then(items => {
-        this.setState({ loading: false, items });
-      });
-    };
+    fetchItems().then(items => {
+      setLoading(false);
+      setItems(items);
+    });
+  };
 
-    onClose = () => {
-      this.setState({ open: false });
-    };
+  const onClose = () => {
+    setOpen(false);
+  };
 
-    onSelect = e => {
-      this.setState({ selected: e.target.value });
-    };
+  const onSelect = e => {
+    setSelected(e.target.value);
+  };
 
-    render() {
-      const { classes } = this.props;
-
-      return (
-        <Fragment>
-          <Button color="primary" onClick={this.onShowItems}>
-            Select Item
-          </Button>
-          <Dialog
-            open={this.state.open}
-            classes={{ paper: classes.dialog }}
-            maxWidth="xs"
-            fullWidth
+  return (
+    <Fragment>
+      <Button color="primary" onClick={onShowItems}>
+        Select Item
+      </Button>
+      <Dialog
+        open={open}
+        classes={{ paper: classes.dialog }}
+        maxWidth="xs"
+        fullWidth
+      >
+        <DialogTitle>Select Item</DialogTitle>
+        <DialogContent>
+          <MaybeLinearProgress loading={loading} />
+          <MaybeSelect
+            value={selected}
+            onChange={onSelect}
+            className={classes.select}
+            loading={loading}
           >
-            <DialogTitle>Select Item</DialogTitle>
-            <DialogContent>
-              <MaybeLinearProgress loading={this.state.loading} />
-              <MaybeSelect
-                value={this.state.selected}
-                onChange={this.onSelect}
-                className={classes.select}
-                loading={this.state.loading}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                {this.state.items.map(item => (
-                  <MenuItem index={item.id} value={item.id}>
-                    {item.name}
-                  </MenuItem>
-                ))}
-              </MaybeSelect>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                disabled={this.state.loading}
-                onClick={this.onClose}
-                color="primary"
-              >
-                Cancel
-              </Button>
-              <Button
-                disabled={this.state.loading}
-                variant="contained"
-                onClick={this.onClose}
-                color="primary"
-              >
-                Select
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </Fragment>
-      );
-    }
-  }
-);
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {items.map(item => (
+              <MenuItem key={item.id} index={item.id} value={item.id}>
+                {item.name}
+              </MenuItem>
+            ))}
+          </MaybeSelect>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            disabled={loading}
+            onClick={onClose}
+            color="primary"
+          >
+            Cancel
+          </Button>
+          <Button
+            disabled={loading}
+            variant="contained"
+            onClick={onClose}
+            color="primary"
+          >
+            Select
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Fragment>
+  );
+}
