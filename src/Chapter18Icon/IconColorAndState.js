@@ -16,10 +16,10 @@ import Dock from '@material-ui/icons/Dock';
 import Gamepad from '@material-ui/icons/Gamepad';
 
 const styles = theme => ({
-  icon: { margin: theme.spacing.unit * 3 }
+  icon: { margin: theme.spacing(3) }
 });
 
-export default withStyles(styles)(({ color, classes }) => (
+const IconColorAndState = withStyles(styles)(({ color, classes }) => (
   <Fragment>
     <Cast className={classes.icon} color={color} />
     <CastConnected className={classes.icon} color={color} />
@@ -35,3 +35,5 @@ export default withStyles(styles)(({ color, classes }) => (
     <Gamepad className={classes.icon} color={color} />
   </Fragment>
 ));
+
+export default IconColorAndState;

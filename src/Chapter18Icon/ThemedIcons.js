@@ -77,13 +77,15 @@ const themes = {
 };
 
 const styles = theme => ({
-  icon: { margin: theme.spacing.unit * 3 }
+  icon: { margin: theme.spacing(3) }
 });
 
-export default withStyles(styles)(({ theme, classes }) => (
+const ThemedIcons = withStyles(styles)(({ theme, classes }) => (
   <Suspense fallback={<CircularProgress />}>
     {themes[theme].map((Icon, index) => (
       <Icon fontSize="large" key={index} className={classes.icon} />
     ))}
   </Suspense>
 ));
+
+export default ThemedIcons;

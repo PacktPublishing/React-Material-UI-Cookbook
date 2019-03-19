@@ -47,13 +47,17 @@ const categories = {
 };
 
 const styles = theme => ({
-  icon: { margin: theme.spacing.unit * 3 }
+  icon: { margin: theme.spacing(3) }
 });
 
-export default withStyles(styles)(({ category, classes }) => (
-  <Suspense fallback={<CircularProgress />}>
-    {categories[category].map((Icon, index) => (
-      <Icon key={index} className={classes.icon} />
-    ))}
-  </Suspense>
-));
+const DynamicallyLoadingIcons = withStyles(styles)(
+  ({ category, classes }) => (
+    <Suspense fallback={<CircularProgress />}>
+      {categories[category].map((Icon, index) => (
+        <Icon key={index} className={classes.icon} />
+      ))}
+    </Suspense>
+  )
+);
+
+export default DynamicallyLoadingIcons;

@@ -16,10 +16,10 @@ import Twitter from 'mdi-material-ui/Twitter';
 import Uber from 'mdi-material-ui/Uber';
 
 const styles = theme => ({
-  icon: { margin: theme.spacing.unit * 3 }
+  icon: { margin: theme.spacing(3) }
 });
 
-export default withStyles(styles)(({ classes }) => (
+const InstallingMoreIcons = withStyles(styles)(({ classes }) => (
   <Fragment>
     <Apple className={classes.icon} />
     <Facebook className={classes.icon} />
@@ -35,3 +35,5 @@ export default withStyles(styles)(({ classes }) => (
     <Uber className={classes.icon} />
   </Fragment>
 ));
+
+export default InstallingMoreIcons;

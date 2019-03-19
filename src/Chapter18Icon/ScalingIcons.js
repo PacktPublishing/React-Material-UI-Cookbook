@@ -16,10 +16,10 @@ import Dock from '@material-ui/icons/Dock';
 import Gamepad from '@material-ui/icons/Gamepad';
 
 const styles = theme => ({
-  icon: { margin: theme.spacing.unit * 3 }
+  icon: { margin: theme.spacing(3) }
 });
 
-export default withStyles(styles)(({ fontSize, classes }) => (
+const ScalingIcons = withStyles(styles)(({ fontSize, classes }) => (
   <Fragment>
     <Cast className={classes.icon} fontSize={fontSize} />
     <CastConnected className={classes.icon} fontSize={fontSize} />
@@ -35,3 +35,5 @@ export default withStyles(styles)(({ fontSize, classes }) => (
     <Gamepad className={classes.icon} fontSize={fontSize} />
   </Fragment>
 ));
+
+export default ScalingIcons;
