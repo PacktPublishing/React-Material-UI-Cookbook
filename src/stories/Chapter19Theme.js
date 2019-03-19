@@ -7,7 +7,6 @@ import {
   UnderstandingThePalette,
   LightVersusDarkThemes,
   CustomTypography,
-  CustomizingThemeProperties,
   NestingThemes,
   ComponentThemeSettings
 } from '../Chapter19Theme';

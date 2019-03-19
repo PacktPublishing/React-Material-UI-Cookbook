@@ -5,21 +5,25 @@ import {
   withStyles,
   createGenerateClassName
 } from '@material-ui/styles';
+import {
+  createMuiTheme,
+  MuiThemeProvider
+} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
-    margin: theme.spacing.unit * 2
+    margin: theme.spacing(2)
   },
   contained: {
     extend: 'root',
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2)
   },
   containedPrimary: {
     extend: 'contained',
-    paddingLeft: theme.spacing.unit * 4,
-    paddingRight: theme.spacing.unit * 4
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4)
   }
 });
 
@@ -28,7 +32,9 @@ const App = ({ children }) => (
     jss={jss}
     generateClassName={createGenerateClassName()}
   >
-    {children}
+    <MuiThemeProvider theme={createMuiTheme()}>
+      {children}
+    </MuiThemeProvider>
   </JssProvider>
 );
 
@@ -48,10 +54,10 @@ const Buttons = withStyles(styles)(({ classes }) => (
   </Fragment>
 ));
 
-const ScopedComponentStyles = () => (
+const ExtendingComponentStyles = () => (
   <App>
     <Buttons />
   </App>
 );
 
-export default ScopedComponentStyles;
+export default ExtendingComponentStyles;

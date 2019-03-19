@@ -5,15 +5,15 @@ import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
-    margin: theme.spacing.unit * 2
+    margin: theme.spacing(2)
   },
   contained: {
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2)
   },
   containedPrimary: {
-    paddingLeft: theme.spacing.unit * 4,
-    paddingRight: theme.spacing.unit * 4
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4)
   }
 });
 

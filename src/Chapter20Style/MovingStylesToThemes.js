@@ -15,21 +15,18 @@ const theme = createMuiTheme({
         margin: 16
       },
       contained: {
-        paddingTop: defaultTheme.spacing.unit * 2,
-        paddingBottom: defaultTheme.spacing.unit * 2
+        paddingTop: defaultTheme.spacing(2),
+        paddingBottom: defaultTheme.spacing(2)
       },
       containedPrimary: {
-        paddingLeft: defaultTheme.spacing.unit * 4,
-        paddingRight: defaultTheme.spacing.unit * 4
+        paddingLeft: defaultTheme.spacing(4),
+        paddingRight: defaultTheme.spacing(4)
       }
     }
-  },
-  typography: {
-    useNextVariants: true
   }
 });
 
-const ScopedComponentStyles = ({ classes }) => (
+const MovingStylesToThemes = ({ classes }) => (
   <MuiThemeProvider theme={theme}>
     <Button>My Default Button</Button>
     <Button variant="contained">My Contained Button</Button>
@@ -39,4 +36,4 @@ const ScopedComponentStyles = ({ classes }) => (
   </MuiThemeProvider>
 );
 
-export default ScopedComponentStyles;
+export default MovingStylesToThemes;

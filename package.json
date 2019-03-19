@@ -13,7 +13,7 @@
     "ajv": "^6.10.0",
     "autosuggest-highlight": "^3.1.1",
     "date-fns": "^2.0.0-alpha.27",
-    "jss": "^10.0.0-alpha.14",
+    "jss": "^9.8.7",
     "jss-extend": "^6.2.0",
     "material-ui-chip-input": "^1.0.0-beta.14",
     "material-ui-pickers": "^2.2.4",

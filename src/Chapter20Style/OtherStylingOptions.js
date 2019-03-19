@@ -11,7 +11,7 @@ const MyStyledButton = styled(Button)({
   paddingBottom: 16
 });
 
-const ScopedComponentStyles = () => (
+const OtherStylingOptions = () => (
   <Fragment>
     <Button style={{ margin: 16 }}>My Default Button</Button>
     <MyStyledButton variant="contained">
@@ -27,4 +27,4 @@ const ScopedComponentStyles = () => (
   </Fragment>
 );
 
-export default ScopedComponentStyles;
+export default OtherStylingOptions;
