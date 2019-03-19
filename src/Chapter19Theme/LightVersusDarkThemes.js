@@ -17,7 +17,7 @@ import pink from '@material-ui/core/colors/pink';
 import blue from '@material-ui/core/colors/blue';
 
 const styles = theme => ({
-  button: { margin: theme.spacing.unit * 2 }
+  button: { margin: theme.spacing(2) }
 });
 
 const light = createMuiTheme({
@@ -26,9 +26,6 @@ const light = createMuiTheme({
     primary: blue,
     secondary: pink,
     error: { main: red[600] }
-  },
-  typography: {
-    useNextVariants: true
   }
 });
 
@@ -38,9 +35,6 @@ const dark = createMuiTheme({
     primary: blue,
     secondary: pink,
     error: { main: red[600] }
-  },
-  typography: {
-    useNextVariants: true
   }
 });
 

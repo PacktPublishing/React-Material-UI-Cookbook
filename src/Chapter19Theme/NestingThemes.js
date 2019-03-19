@@ -21,9 +21,6 @@ const Blue = createMuiTheme({
     primary: blue,
     secondary: pink,
     error: { main: red[600] }
-  },
-  typography: {
-    useNextVariants: true
   }
 });
 
@@ -32,9 +29,6 @@ const Rounded = theme =>
     ...theme,
     shape: {
       borderRadius: 8
-    },
-    typography: {
-      useNextVariants: true
     }
   });
 

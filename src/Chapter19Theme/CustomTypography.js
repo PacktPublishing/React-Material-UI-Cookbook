@@ -3,7 +3,6 @@ import 'typeface-exo';
 import 'typeface-ubuntu';
 
 import {
-  withStyles,
   createMuiTheme,
   MuiThemeProvider
 } from '@material-ui/core/styles';
@@ -16,21 +15,18 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 const roboto = createMuiTheme({
   typography: {
-    useNextVariants: true,
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
   }
 });
 
 const exo = createMuiTheme({
   typography: {
-    useNextVariants: true,
     fontFamily: '"Exo", "Roboto", "Helvetica", "Arial", sans-serif'
   }
 });
 
 const ubuntu = createMuiTheme({
   typography: {
-    useNextVariants: true,
     fontFamily: '"Ubuntu", "Roboto", "Helvetica", "Arial", sans-serif'
   }
 });

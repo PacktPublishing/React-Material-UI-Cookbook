@@ -15,9 +15,6 @@ const theme = createMuiTheme({
   overrides: {
     MuiDialogTitle: { root: { textAlign: 'center' } },
     MuiDialogActions: { root: { justifyContent: 'center' } }
-  },
-  typography: {
-    useNextVariants: true
   }
 });
 

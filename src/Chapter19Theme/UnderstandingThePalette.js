@@ -29,7 +29,7 @@ import grey from '@material-ui/core/colors/grey';
 import blueGrey from '@material-ui/core/colors/blueGrey';
 
 const styles = theme => ({
-  button: { margin: theme.spacing.unit * 2 }
+  button: { margin: theme.spacing(2) }
 });
 
 const hues = {
@@ -54,7 +54,7 @@ const hues = {
   blueGrey
 };
 
-export default withStyles(styles)(
+const UnderstandingThePallette = withStyles(styles)(
   ({
     primaryHue,
     primaryShade,
@@ -69,9 +69,6 @@ export default withStyles(styles)(
         primary: { main: hues[primaryHue][primaryShade] },
         secondary: { main: hues[secondaryHue][secondaryShade] },
         error: { main: hues[errorHue][errorShade] }
-      },
-      typography: {
-        useNextVariants: true
       }
     });
 
@@ -101,3 +98,5 @@ export default withStyles(styles)(
     );
   }
 );
+
+export default UnderstandingThePallette;
