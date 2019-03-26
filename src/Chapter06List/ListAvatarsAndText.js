@@ -44,7 +44,7 @@ function ListAvatarsAndText({ classes }) {
   return (
     <List>
       {items.map(({ Icon, ...item }, index) => (
-        <ListItem button>
+        <ListItem key={index} button>
           <ListItemIcon>
             <Badge
               color={item.notifications ? 'secondary' : undefined}

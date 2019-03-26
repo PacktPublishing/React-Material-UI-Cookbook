@@ -24,7 +24,7 @@ const MyButton = ({ fab, ...props }) => {
 
 export default function ButtonSizes({ size, color }) {
   return (
-    <Grid container spacing={16} alignItems="center">
+    <Grid container spacing={4} alignItems="center">
       <Grid item>
         <MyButton variant="contained" size={size} color={color}>
           Add

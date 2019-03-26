@@ -22,20 +22,18 @@ const TypesOfTypography = () => (
     <Typography variant="caption">caption variant</Typography>
     <Typography variant="button">button variant</Typography>
     <Typography variant="overline">overline variant</Typography>
-    <Typography variant="title" component="div">
+    <Typography variant="h6" component="div">
+      <Typography variant="inherit">inherited h6 variant</Typography>
       <Typography variant="inherit">
-        inherited title variant
-      </Typography>
-      <Typography variant="inherit">
-        another inherited title variant
+        another inherited h6 variant
       </Typography>
       <Typography variant="caption">
         overridden caption variant
       </Typography>
     </Typography>
-    <MyTypography variant="title" component="div">
-      <MyTypography>inherited title variant</MyTypography>
-      <MyTypography>another inherited title variant</MyTypography>
+    <MyTypography variant="h6" component="div">
+      <MyTypography>inherited h6 variant</MyTypography>
+      <MyTypography>another inherited h6 variant</MyTypography>
       <MyTypography variant="caption">
         overridden caption variant
       </MyTypography>

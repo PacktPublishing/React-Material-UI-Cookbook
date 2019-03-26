@@ -52,7 +52,7 @@ export default function CustomizingCheckboxItems() {
           key={index}
           control={
             <Checkbox
-              checked={items[name]}
+              checked={items[name] || false}
               onChange={onChange}
               inputProps={{ name }}
               icon={<Icon fontSize="small" />}

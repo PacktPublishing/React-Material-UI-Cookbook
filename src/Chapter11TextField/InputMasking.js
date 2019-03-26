@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles(theme => ({
-  input: { margin: theme.spacing.unit * 3 }
+  input: { margin: theme.spacing(3) }
 }));
 
 const PhoneInput = ({ inputRef, ...props }) => (

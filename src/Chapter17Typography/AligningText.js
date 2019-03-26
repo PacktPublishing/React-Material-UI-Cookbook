@@ -26,9 +26,11 @@ const MyPaper = withStyles(styles)(
   )
 );
 
-const MyTypography = ({ ...props }) => (
-  <Grid item component={Typography} {...props} />
-);
+const MyTypography = ({
+  horizontalAlign,
+  verticalAlign,
+  ...props
+}) => <Grid item component={Typography} {...props} />;
 
 const AligningText = ({ ...props }) => (
   <MyPaper {...props}>

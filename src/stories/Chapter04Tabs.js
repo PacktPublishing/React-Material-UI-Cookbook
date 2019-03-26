@@ -3,7 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
-import { withKnobs, boolean } from '@storybook/addon-knobs';
+import { withKnobs } from '@storybook/addon-knobs';
 import StoryRouter from 'storybook-react-router';
 
 import withThemeProvider from './withThemeProvider';
@@ -21,12 +21,7 @@ storiesOf('Chapter 4 Tabs', module)
   .addDecorator(withThemeProvider)
   .addDecorator(StoryRouter())
   .add('AppBar Integration', () => <AppBarIntegration />)
-  .add('Tab Alignment', () => (
-    <TabAlignment
-      centered={boolean('Centered', false)}
-      fullWidth={boolean('Full Width')}
-    />
-  ))
+  .add('Tab Alignment', () => <TabAlignment />)
   .add('Rendering Tabs Based on State', () => (
     <RenderingTabsBasedOnState />
   ))

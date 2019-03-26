@@ -29,19 +29,24 @@ export default function Snackbars() {
         open={open}
         onClose={() => setOpen(false)}
         message="Finished creating thing"
-        action={[
-          <Button
-            color="secondary"
-            component={Link}
-            to="/thing"
-            onClick={() => setOpen(false)}
-          >
-            The Thing
-          </Button>,
-          <IconButton color="inherit" onClick={() => setOpen(false)}>
-            <CloseIcon />
-          </IconButton>
-        ]}
+        action={
+          <Fragment>
+            <Button
+              color="secondary"
+              component={Link}
+              to="/thing"
+              onClick={() => setOpen(false)}
+            >
+              The Thing
+            </Button>
+            <IconButton
+              color="inherit"
+              onClick={() => setOpen(false)}
+            >
+              <CloseIcon />
+            </IconButton>
+          </Fragment>
+        }
       />
     </Fragment>
   );

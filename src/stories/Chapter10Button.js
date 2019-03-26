@@ -59,8 +59,7 @@ storiesOf('Chapter 10 Buttons', module)
       })}
       size={select('Size', {
         Small: 'small',
-        Medium: 'medium',
-        Large: 'large'
+        Medium: 'medium'
       })}
     />
   ));

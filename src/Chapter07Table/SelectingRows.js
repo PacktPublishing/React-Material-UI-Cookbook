@@ -14,8 +14,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 
 const useStyles = makeStyles(theme => ({
-  root: { margin: theme.spacing.unit * 2, textAlign: 'center' },
-  card: { margin: theme.spacing.unit * 2, maxWidth: 300 }
+  root: { margin: theme.spacing(2), textAlign: 'center' },
+  card: { margin: theme.spacing(2), maxWidth: 300 }
 }));
 
 export default function SelectingRows() {

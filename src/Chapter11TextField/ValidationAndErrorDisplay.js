@@ -14,7 +14,7 @@ const MyTextField = ({ isInvalid, ...props }) => {
   return (
     <TextField
       {...props}
-      error={invalid}
+      error={Boolean(invalid)}
       helperText={invalid || props.helperText}
     />
   );

@@ -10,7 +10,7 @@ import Switch from '@material-ui/core/Switch';
 import CheckBox from '@material-ui/core/Checkbox';
 
 const styles = theme => ({
-  control: { margin: theme.spacing.unit * 2 }
+  control: { margin: theme.spacing(2) }
 });
 
 const SwitchGroup = withStyles(styles)(
