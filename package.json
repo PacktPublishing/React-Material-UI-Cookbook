@@ -10,7 +10,7 @@
     "@storybook/addon-notes": "^5.0.5",
     "@storybook/cli": "^5.0.5",
     "acorn": "^6.1.1",
-    "ajv": "^6.10.0",
+    "ajv": "^6.12.3",
     "autosuggest-highlight": "^3.1.1",
     "date-fns": "^2.0.0-alpha.27",
     "jss": "^9.8.7",
