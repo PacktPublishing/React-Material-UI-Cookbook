@@ -22,7 +22,7 @@
     "react-dom": "^16.8.5",
     "react-jss": "^8.6.1",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "^2.1.8",
+    "react-scripts": "^5.0.1",
     "react-select": "^2.4.2",
     "react-text-mask": "^5.4.3",
     "react-virtualized": "^9.21.0",
@@ -46,7 +46,7 @@
     "@storybook/addon-links": "^5.0.5",
     "@storybook/addon-options": "^4.1.14",
     "@storybook/addons": "^5.0.5",
-    "@storybook/react": "^5.0.5",
+    "@storybook/react": "^6.5.13",
     "babel-core": "^6.26.3",
     "storybook-react-router": "^1.0.4"
   },
